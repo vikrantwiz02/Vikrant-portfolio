@@ -19,7 +19,7 @@ export const ServicesSection = ({ active }: { active: boolean }) => {
         <div className="h-[1px] w-12 bg-slate-700"></div>
         <NeuralNode active={active} />
         <h2 className={`text-3xl font-bold text-white transition-all duration-700 ${active ? 'drop-shadow-[0_0_15px_rgba(34,211,238,0.6)]' : 'text-slate-400'}`}>
-           <DecryptionText text="SYSTEM UPGRADES" />
+           <DecryptionText text="GET YOUR SYSTEM BUILT" />
         </h2>
         <div className="h-[1px] w-12 bg-slate-700"></div>
       </div>

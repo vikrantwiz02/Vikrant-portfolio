@@ -26,7 +26,7 @@ export const EDUCATION: Experience[] = [
     period: '2023 - 2027',
     type: 'education',
     description: [
-      'Core Coursework: DBMS, Operating Systems, Computer Networks, AI.'
+      // 'Core Coursework: DBMS, Operating Systems, Computer Networks, AI.'
     ]
   }
 ];

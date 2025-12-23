@@ -292,10 +292,6 @@ const App: React.FC = () => {
       document.body.style.filter = `hue-rotate(${hue}deg)`;
   };
 
-  if (!bootComplete) {
-    return <BootSequence onComplete={() => setBootComplete(true)} />;
-  }
-
   return (
     <div className="relative min-h-screen bg-obsidian text-white selection:bg-cyan-500/30 selection:text-cyan-200 cursor-none overflow-x-hidden">
       <CyberCursor />

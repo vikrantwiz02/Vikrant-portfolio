@@ -41,58 +41,12 @@ export const useAudio = () => {
          osc.stop(now + 0.03);
       }
     } catch (e) {
-      // Audio context might be blocked
     }
   }, []);
   
   return playSound;
 };
 
-/* --- 1. System Boot Sequence (Modified) --- */
-export const BootSequence: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
-  const [lines, setLines] = useState<string[]>([]);
-  const play = useAudio();
-  
-  useEffect(() => {
-    const bootLines = [
-      "INITIALIZING NEURAL KERNEL...",
-      "LOADING ASSETS [||||||||||] 100%",
-      "BYPASSING SECURITY PROTOCOLS...",
-      "ESTABLISHING UPLINK...",
-      "SYSTEM READY."
-    ];
-    
-    let delay = 0;
-    bootLines.forEach((line, index) => {
-      delay += Math.random() * 500 + 300;
-      setTimeout(() => {
-        setLines(prev => [...prev, line]);
-        play('type');
-        if (index === bootLines.length - 1) {
-          setTimeout(onComplete, 800);
-        }
-      }, delay);
-    });
-  }, [onComplete]);
-
-  return (
-    <div className="fixed inset-0 z-[99999] bg-black flex items-center justify-center font-mono text-cyan-500 p-8">
-       <div className="w-full max-w-lg">
-          {lines.map((line, i) => (
-            <div key={i} className="mb-2 border-l-2 border-cyan-500 pl-2 animate-pulse">
-               <span className="text-white opacity-50 text-xs mr-2">
-                 {new Date().toLocaleTimeString()} ::
-               </span>
-               {line}
-            </div>
-          ))}
-          <div className="h-4 w-3 bg-cyan-500 animate-pulse mt-4 inline-block" />
-       </div>
-    </div>
-  );
-};
-
-/* --- 2. Sonar Pulse System --- */
 export const SonarPulse: React.FC = () => {
     const [ripples, setRipples] = useState<{x: number, y: number, id: number}[]>([]);
     

@@ -44,7 +44,7 @@ export const PROJECTS: Project[] = [
   {
     id: '4',
     title: 'ORSI Conference',
-    description: 'Official digital platform for the ORSI State Chapter. Facilitates organizational event management, delegate registration, and research dissemination for medical professionals.',
+    description: 'Official platform for the ORSI Conference 2026. Facilitates organizational event management.',
     tags: ['React', 'Web Design', 'Organization'],
     image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=1000&auto=format&fit=crop',
     link: 'https://orsiconference.org/'
@@ -52,16 +52,16 @@ export const PROJECTS: Project[] = [
   {
     id: '1',
     title: 'Fusion ERP System',
-    description: 'Enterprise ERP serving 6000+ users. Optimized performance by 35% and architected scalable microservices infrastructure using React and Django.',
+    description: 'Enterprise ERP serving 3000+ users. Architected scalable microservices infrastructure using React and Django.',
     tags: ['React', 'Django', 'PostgreSQL'],
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop',
     link: 'http://fusion.iiitdmj.ac.in/'
   },
   {
     id: '2',
-    title: 'Saviour 2.0',
-    description: 'Advanced emergency response platform with real-time tracking, AI-powered resource allocation, and 99% prediction accuracy for disaster management.',
-    tags: ['React', 'Node.js', 'Firebase', 'AI'],
+    title: 'Saviour',
+    description: 'Emergency response platform with user to user support as well as employee support system.',
+    tags: ['React', 'Node.js', 'Firebase'],
     image: 'https://images.unsplash.com/photo-1599930113854-d6d7fd521f10?q=80&w=1000&auto=format&fit=crop',
     link: 'https://saviour-ten.vercel.app/'
   },
@@ -69,7 +69,7 @@ export const PROJECTS: Project[] = [
     id: '3',
     title: 'HydroTech',
     description: 'AI-Powered Groundwater Analytics solution using Python and React. Provides predictive insights for water resource management.',
-    tags: ['Python', 'React', 'MongoDB', 'AI'],
+    tags: ['Python', 'React', 'MongoDB'],
     image: 'https://images.unsplash.com/photo-1581093458791-9f302e6d8359?q=80&w=1000&auto=format&fit=crop',
     link: 'https://hydro-tech-mu.vercel.app/'
   }

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
-/* --- UTILS: AUDIO SYNTH --- */
 export const useAudio = () => {
   const playSound = useCallback((type: 'hover' | 'click' | 'type') => {
     try {

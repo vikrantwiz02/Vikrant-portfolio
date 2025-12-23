@@ -4,8 +4,8 @@ import {
 } from 'lucide-react';
 import { Achievement, Experience, Project, Service, Skill } from './types';
 
-// Replace this URL with your actual photo
-export const PROFILE_IMAGE = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=300&h=300";
+
+export const PROFILE_IMAGE = "vikrant.jpg";
 
 export const EXPERIENCES: Experience[] = [
   {

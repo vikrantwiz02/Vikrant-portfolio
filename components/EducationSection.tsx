@@ -19,7 +19,6 @@ export const EducationSection = ({ active }: { active: boolean }) => (
           <div className={`w-full max-w-2xl transition-all duration-700 ${active ? 'opacity-100 scale-100' : 'opacity-50 scale-95'}`}>
             <HoloCard className="inline-block w-full">
                 <div className="p-8 flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
-                    {/* Icon Box */}
                     <div className="p-4 bg-cyan-950/30 rounded-xl border border-cyan-500/20 shrink-0">
                         <GraduationCap size={32} className="text-cyan-400" />
                     </div>

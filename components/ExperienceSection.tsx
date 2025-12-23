@@ -17,7 +17,6 @@ export const ExperienceSection = ({ active }: { active: boolean }) => (
         const isLeft = idx % 2 === 0;
         return (
           <div key={exp.id} className="relative grid grid-cols-[1fr_auto_1fr] gap-4 md:gap-8 items-center mb-12 last:mb-0">
-            {/* Left Side Content */}
             <div className={`text-right ${isLeft ? 'block' : 'hidden md:block md:invisible'}`}>
               <HoloCard className="inline-block w-full">
                  <div className="p-6 text-left">
@@ -39,13 +38,11 @@ export const ExperienceSection = ({ active }: { active: boolean }) => (
               </HoloCard>
             </div>
 
-            {/* Center Node */}
             <div className="flex justify-center relative h-full">
                <div className="w-px h-full bg-slate-800 absolute top-0 left-1/2 -translate-x-1/2 -z-10" />
                <div className={`w-3 h-3 rounded-full border border-cyan-500 bg-obsidian z-10 mt-6 transition-all duration-500 ${active ? 'scale-125 shadow-[0_0_10px_#22d3ee]' : 'scale-100 opacity-50'}`} />
             </div>
 
-            {/* Right Side Content */}
             <div className={`text-left ${!isLeft ? 'block' : 'hidden md:block md:invisible'}`}>
                <HoloCard className="inline-block w-full">
                  <div className="p-6">

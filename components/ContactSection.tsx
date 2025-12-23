@@ -20,13 +20,11 @@ export const ContactSection = ({ active }: { active: boolean }) => {
     setFormState('sending');
 
     try {
-        // Validation check
         if (!PUBLIC_KEY || !SERVICE_ID) {
             console.log("DEMO MODE (Missing Keys): Sending to console.");
             console.log("Payload:", formData);
             await new Promise(resolve => setTimeout(resolve, 1500)); 
         } else {
-            // --- PRODUCTION MODE ---
             await emailjs.send(
             SERVICE_ID, 
             TEMPLATE_ID_CONTACT, 

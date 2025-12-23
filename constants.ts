@@ -52,7 +52,7 @@ export const PROJECTS: Project[] = [
   {
     id: '1',
     title: 'Fusion ERP System',
-    description: 'Enterprise ERP serving 3000+ users. Architected scalable microservices infrastructure using React and Django.',
+    description: 'Enterprise ERP serving 3000+ users.',
     tags: ['React', 'Django', 'PostgreSQL'],
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop',
     link: 'http://fusion.iiitdmj.ac.in/'

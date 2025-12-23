@@ -137,7 +137,7 @@ export const ContactSection = ({ active }: { active: boolean }) => {
                   <div className="absolute inset-0 flex items-center justify-center">
                   <div className="flex items-center gap-2">
                     <Send size={16} className={formState === 'sending' ? 'animate-ping' : ''} />
-                    <span className={`font-mono font-bold tracking-widest transition-all ${formState === 'sending' ? 'text-cyan-300' : 'text-cyan-500 group-hover:text-cyan-400'}`}>
+                    <span className={`font-mono font-bold tracking-widest transition-all text-xs sm:text-sm md:text-base ${formState === 'sending' ? 'text-cyan-300' : 'text-cyan-500 group-hover:text-cyan-400'}`}>
                       {formState === 'sending' ? 'UPLOADING...' : 'INITIATE_TRANSMISSION'}
                     </span>
                   </div>

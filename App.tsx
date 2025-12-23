@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
-import { motion, useScroll, useSpring } from 'framer-motion';
 import { 
-  NeuralThread, CyberCursor, BootSequence, BinaryRain, FloatingRunes, 
+  NeuralThread, CyberCursor, BinaryRain, FloatingRunes, 
   SystemLogger, SonarPulse, IdleScreen, ScrollProgress, CommandTerminal, Constellation
 } from './components/NeuralCore';
 import { 

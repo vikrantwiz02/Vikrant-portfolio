@@ -130,7 +130,7 @@ const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 text-sm font-mono text-slate-300 hover:text-cyan-400 transition-colors group/btn"
                         >
-                            <span>OPEN_SOURCE</span>
+                            <span>Visit</span>
                             <ExternalLink size={14} className="group-hover/btn:translate-x-1 transition-transform" />
                         </a>
                     </div>

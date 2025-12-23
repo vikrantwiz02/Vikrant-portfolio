@@ -49,7 +49,7 @@ export const HeroSection = ({ isScrolling }: { isScrolling: boolean }) => {
           <WireframeTesseract />
       </div>
 
-      <div className="relative w-32 h-32 md:w-40 md:h-40 mb-10 z-20 group cursor-default">
+      <div className="relative w-32 h-32 md:w-40 md:h-40 mb-10 z-20 group cursor-default mt-16 md:mt-0">
           {/* Outer Rotating Ring */}
           <div className="absolute inset-[-10px] rounded-full border-2 border-cyan-500/20 border-t-transparent animate-spin-slow" />
           

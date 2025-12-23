@@ -128,23 +128,23 @@ export const ContactSection = ({ active }: { active: boolean }) => {
                 />
               </div>
 
-              <MagneticWrapper className="w-full">
+                <MagneticWrapper className="w-full max-w-full">
                 <button 
-                    type="submit"
-                    disabled={formState === 'sending'}
-                    className="w-full group relative overflow-hidden rounded-lg bg-cyan-900/20 border border-cyan-500/30 p-4 transition-all hover:bg-cyan-500/10 hover:border-cyan-400 cursor-pointer"
+                  type="submit"
+                  disabled={formState === 'sending'}
+                  className="w-full max-w-full group relative overflow-hidden rounded-lg bg-cyan-900/20 border border-cyan-500/30 py-4 px-2 transition-all hover:bg-cyan-500/10 hover:border-cyan-400 cursor-pointer"
                 >
-                    <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="flex items-center gap-2">
-                        <Send size={16} className={formState === 'sending' ? 'animate-ping' : ''} />
-                        <span className={`font-mono font-bold tracking-widest transition-all ${formState === 'sending' ? 'text-cyan-300' : 'text-cyan-500 group-hover:text-cyan-400'}`}>
-                            {formState === 'sending' ? 'UPLOADING...' : 'INITIATE_TRANSMISSION'}
-                        </span>
-                    </div>
-                    </div>
-                    <div className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-cyan-400/5 transition-opacity" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="flex items-center gap-2">
+                    <Send size={16} className={formState === 'sending' ? 'animate-ping' : ''} />
+                    <span className={`font-mono font-bold tracking-widest transition-all ${formState === 'sending' ? 'text-cyan-300' : 'text-cyan-500 group-hover:text-cyan-400'}`}>
+                      {formState === 'sending' ? 'UPLOADING...' : 'INITIATE_TRANSMISSION'}
+                    </span>
+                  </div>
+                  </div>
+                  <div className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-cyan-400/5 transition-opacity" />
                 </button>
-              </MagneticWrapper>
+                </MagneticWrapper>
             </form>
           )}
         </div>

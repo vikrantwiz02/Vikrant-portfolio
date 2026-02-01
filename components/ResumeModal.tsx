@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Download, Maximize2, Minimize2, FileText, Loader2 } from 'lucide-react';
+import { X, Download, Maximize2, Minimize2, FileText, Loader2, ExternalLink } from 'lucide-react';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -9,6 +9,16 @@ interface ResumeModalProps {
 export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -24,7 +34,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[12000] overflow-hidden">
+    <div className="fixed inset-0 z-[15000] overflow-hidden">
       <div 
         className="fixed inset-0 bg-black/95 backdrop-blur-md transition-opacity" 
         onClick={onClose} 
@@ -38,27 +48,33 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
       }`}>
         <div className="relative w-full h-full flex flex-col rounded-xl border border-cyan-500/30 bg-slate-950 shadow-[0_0_80px_rgba(34,211,238,0.15)] overflow-hidden">
 
-          <div className="flex items-center justify-between px-4 py-3 bg-slate-900/80 border-b border-cyan-500/20">
-            <div className="flex items-center gap-3">
-              {/* Terminal dots */}
-              <div className="flex gap-1.5">
+          <div className="flex items-center justify-between px-3 md:px-4 py-3 bg-slate-900/80 border-b border-cyan-500/20">
+            <div className="flex items-center gap-2 md:gap-3">
+              <button
+                onClick={onClose}
+                className="md:hidden p-2 rounded-lg border border-red-500/50 bg-red-950/30 text-red-400 hover:bg-red-500/20 transition-all duration-300"
+              >
+                <X size={18} />
+              </button>
+              
+              <div className="hidden md:flex gap-1.5">
                 <div className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-400 cursor-pointer transition-colors" onClick={onClose} />
                 <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 <div className="w-3 h-3 rounded-full bg-green-500/80" />
               </div>
               
-              <div className="hidden sm:flex items-center gap-2 ml-2">
+              <div className="flex items-center gap-2 ml-1 md:ml-2">
                 <FileText size={14} className="text-cyan-400" />
-                <span className="font-mono text-xs text-cyan-300 tracking-wider">
-                  RESUME_VIEWER.exe
+                <span className="font-mono text-[10px] md:text-xs text-cyan-300 tracking-wider">
+                  RESUME<span className="hidden sm:inline">_VIEWER.exe</span>
                 </span>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 md:gap-2">
               <button
                 onClick={() => setIsFullscreen(!isFullscreen)}
-                className="p-2 rounded-lg border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/50 transition-all duration-300"
+                className="hidden md:flex p-2 rounded-lg border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/50 transition-all duration-300"
                 title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
               >
                 {isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
@@ -67,15 +83,16 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               <a
                 href="/Vikrant__Resume.pdf"
                 download="Vikrant_Kumar_Resume.pdf"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg border border-cyan-500/50 bg-cyan-950/30 text-cyan-400 font-mono text-xs tracking-wider hover:bg-cyan-500/20 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all duration-300"
+                className="flex items-center gap-1 md:gap-2 px-3 md:px-4 py-2 rounded-lg border border-cyan-500/50 bg-cyan-950/30 text-cyan-400 font-mono text-[10px] md:text-xs tracking-wider hover:bg-cyan-500/20 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all duration-300"
               >
                 <Download size={14} />
-                <span className="hidden sm:inline">DOWNLOAD</span>
+                <span className="hidden xs:inline">DOWNLOAD</span>
               </a>
 
+              {/* Desktop close button */}
               <button
                 onClick={onClose}
-                className="p-2 rounded-lg border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-red-400 hover:border-red-500/50 transition-all duration-300"
+                className="hidden md:flex p-2 rounded-lg border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-red-400 hover:border-red-500/50 transition-all duration-300"
               >
                 <X size={16} />
               </button>
@@ -83,8 +100,8 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           </div>
 
           {/* PDF Viewer */}
-          <div className="relative flex-1 bg-slate-900/50">
-            {isLoading && (
+          <div className="relative flex-1 bg-slate-900/50 overflow-auto">
+            {isLoading && !isMobile && (
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 z-10">
                 <div className="relative">
                   <div className="w-16 h-16 border-2 border-cyan-500/20 rounded-full" />
@@ -111,29 +128,51 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
             <div className="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-cyan-500/30 pointer-events-none" />
             <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-cyan-500/30 pointer-events-none" />
 
-            {/* PDF Iframe */}
-            <iframe
-              src="/Vikrant__Resume.pdf#toolbar=0&navpanes=0"
-              className="w-full h-full"
-              title="Resume"
-              onLoad={() => setIsLoading(false)}
-            />
+            {isMobile ? (
+              <div className="w-full h-full flex flex-col">
+                <iframe
+                  src={`https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + '/Vikrant__Resume.pdf')}&embedded=true`}
+                  className="w-full h-full border-0"
+                  title="Resume"
+                  onLoad={() => setIsLoading(false)}
+                />
+
+                <div className="absolute bottom-16 left-0 right-0 flex justify-center pointer-events-none">
+                  <a
+                    href="/Vikrant__Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="pointer-events-auto flex items-center gap-2 px-4 py-2 rounded-lg border border-cyan-500/50 bg-slate-950/90 text-cyan-400 font-mono text-xs tracking-wider hover:bg-cyan-500/20 transition-all duration-300 opacity-0 hover:opacity-100 focus:opacity-100"
+                  >
+                    <ExternalLink size={14} />
+                    <span>OPEN_IN_NEW_TAB</span>
+                  </a>
+                </div>
+              </div>
+            ) : (
+              <iframe
+                src="/Vikrant__Resume.pdf#toolbar=0&navpanes=0"
+                className="w-full h-full"
+                title="Resume"
+                onLoad={() => setIsLoading(false)}
+              />
+            )}
           </div>
 
           {/* Footer Status Bar */}
-          <div className="flex items-center justify-between px-4 py-2 bg-slate-900/80 border-t border-cyan-500/20 font-mono text-[10px] text-slate-500">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between px-3 md:px-4 py-2 bg-slate-900/80 border-t border-cyan-500/20 font-mono text-[8px] md:text-[10px] text-slate-500">
+            <div className="flex items-center gap-2 md:gap-4">
               <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                SECURE_CONNECTION
+                <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="hidden xs:inline">SECURE</span>
               </span>
-              <span className="hidden sm:inline text-cyan-500/50">|</span>
-              <span className="hidden sm:inline">PDF_RENDERER_v2.0</span>
+              <span className="hidden md:inline text-cyan-500/50">|</span>
+              <span className="hidden md:inline">PDF_RENDERER_v2.0</span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-cyan-400">VIKRANT_KUMAR</span>
+            <div className="flex items-center gap-1 md:gap-2">
+              <span className="text-cyan-400">VIKRANT</span>
               <span className="text-slate-600">•</span>
-              <span>FULL_STACK_DEVELOPER</span>
+              <span className="hidden sm:inline">FULL_STACK_</span>DEV
             </div>
           </div>
         </div>

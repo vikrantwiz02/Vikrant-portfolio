@@ -83,18 +83,6 @@ const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string
                         </div>
                      </div>
 
-                     <button
-                        onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            onExpand(project);
-                        }}
-                        className="absolute bottom-2 right-2 z-30 p-2 rounded-full bg-cyan-950/80 border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-white transition-all shadow-lg hover:shadow-cyan-500/50 group/btn"
-                        title="Maximize View"
-                     >
-                        <Maximize2 size={16} className="group-hover/btn:scale-110 transition-transform" />
-                     </button>
-
                      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] opacity-10 z-20" />
                 </div>
 

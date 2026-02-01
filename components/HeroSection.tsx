@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Download } from 'lucide-react';
+import { ChevronDown, Eye } from 'lucide-react';
 import { GlitchText, MagneticWrapper, ScrambleLink, WireframeTesseract } from './NeuralCore';
 import { PROFILE_IMAGE } from '../constants';
+import { ResumeModal } from './ResumeModal';
 
 const FloatingData = () => {
   const dataPoints = [
@@ -29,6 +30,7 @@ const FloatingData = () => {
 
 export const HeroSection = ({ isScrolling }: { isScrolling: boolean }) => {
   const [text, setText] = useState('');
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const fullText = "Full Stack Developer";
   
   useEffect(() => {
@@ -110,16 +112,17 @@ export const HeroSection = ({ isScrolling }: { isScrolling: boolean }) => {
         </MagneticWrapper>
         
         <MagneticWrapper>
-            <a
-            href="/Vikrant__Resume.pdf"
-            download="Vikrant_Kumar_Resume.pdf"
-            className="flex items-center gap-2 px-6 py-3 rounded-full border border-cyan-500/50 bg-cyan-950/30 text-cyan-400 font-mono text-sm tracking-wider hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all duration-300"
+            <button
+            onClick={() => setIsResumeOpen(true)}
+            className="flex items-center gap-2 px-6 py-3 rounded-full border border-cyan-500/50 bg-cyan-950/30 text-cyan-400 font-mono text-sm tracking-wider hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all duration-300 group"
             >
-            <Download size={18} />
-            <span>DOWNLOAD_Resume</span>
-            </a>
+            <Eye size={18} className="group-hover:animate-pulse" />
+            <span>VIEW_RESUME</span>
+            </button>
         </MagneticWrapper>
       </div>
+
+      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
 
       <p className="text-slate-500 max-w-md mx-auto mb-12 text-sm md:text-base leading-relaxed">
         Building scalable systems at IIIT Jabalpur. <br/>

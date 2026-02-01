@@ -42,15 +42,23 @@ export const SKILLS: Skill[] = [
 
 export const PROJECTS: Project[] = [
   {
-    id: '4',
+    id: '1',
     title: 'ORSI Conference',
     description: 'Official platform for the ORSI Conference 2026. Facilitates organizational event management.',
     tags: ['React', 'Web Design', 'Organization'],
     image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=1000&auto=format&fit=crop',
     link: 'https://orsiconference.org/'
   },
+    {
+    id: '2',
+    title: 'IIITDMJ Website',
+    description: 'Unofficial website for IIITDMJ with content and media management without any code modification',
+    tags: ['React', 'Next.js', 'Web Design', 'Organization'],
+    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=1000&auto=format&fit=crop',
+    link: 'https://iiitdmj-ten.vercel.app/'
+  },
   {
-    id: '1',
+    id: '3',
     title: 'Fusion ERP System',
     description: 'Enterprise ERP serving 3000+ users.',
     tags: ['React', 'Django', 'PostgreSQL'],
@@ -58,7 +66,7 @@ export const PROJECTS: Project[] = [
     link: 'http://fusion.iiitdmj.ac.in/'
   },
   {
-    id: '2',
+    id: '4',
     title: 'Saviour',
     description: 'Emergency response platform with user to user support as well as employee support system.',
     tags: ['React', 'Node.js', 'Firebase'],
@@ -66,7 +74,7 @@ export const PROJECTS: Project[] = [
     link: 'https://saviour-ten.vercel.app/'
   },
   {
-    id: '3',
+    id: '5',
     title: 'HydroTech',
     description: 'AI-Powered Groundwater Analytics solution using Python and React. Provides predictive insights for water resource management.',
     tags: ['Python', 'React', 'MongoDB'],

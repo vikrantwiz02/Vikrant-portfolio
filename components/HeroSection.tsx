@@ -111,7 +111,8 @@ export const HeroSection = ({ isScrolling }: { isScrolling: boolean }) => {
         
         <MagneticWrapper>
             <a
-            href="#"
+            href="/Vikrant__Resume.pdf"
+            download="Vikrant_Kumar_Resume.pdf"
             className="flex items-center gap-2 px-6 py-3 rounded-full border border-cyan-500/50 bg-cyan-950/30 text-cyan-400 font-mono text-sm tracking-wider hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all duration-300"
             >
             <Download size={18} />

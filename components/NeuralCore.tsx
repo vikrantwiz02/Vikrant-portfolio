@@ -437,17 +437,17 @@ export const HexNode: React.FC<{ level: number, label: string, icon: React.Eleme
                 {/* Hexagon Shape */}
                 <div className="absolute inset-0 bg-slate-800 hex-node transform scale-90 group-hover:scale-100 transition-transform duration-300" />
                 <div 
-                    className="absolute inset-0 bg-cyan-900/50 hex-node transform scale-0 group-hover:scale-100 transition-transform duration-500 origin-center" 
+                    className="absolute inset-0 bg-gradient-to-br from-cyan-900/50 to-purple-900/20 hex-node transform scale-0 group-hover:scale-100 transition-transform duration-500 origin-center" 
                 />
                 
                 {/* Content */}
                 <div className="relative z-10 flex flex-col items-center">
-                     <Icon className="text-cyan-400 mb-1 group-hover:text-white transition-colors" size={24} />
+                     <Icon className="text-cyan-400 mb-1 group-hover:text-white group-hover:drop-shadow-[0_0_10px_rgba(34,211,238,0.6)] transition-all duration-300" size={24} />
                      <span className="text-[10px] font-mono text-cyan-200">{level}%</span>
                 </div>
                 
                 {/* Active Border */}
-                <div className="absolute inset-0 border-2 border-cyan-500/30 hex-node pointer-events-none group-hover:border-cyan-400 transition-colors" />
+                <div className="absolute inset-0 border-2 border-cyan-500/30 hex-node pointer-events-none group-hover:border-cyan-400 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all duration-300" />
             </div>
             <span className="text-xs font-mono text-slate-400 group-hover:text-cyan-400 transition-colors tracking-widest uppercase">{label.split('/')[0]}</span>
         </div>
@@ -470,7 +470,7 @@ export const ScrollProgress: React.FC = () => {
 
     return (
         <motion.div 
-            className="fixed top-0 left-0 right-0 h-1 bg-cyan-400 origin-left z-[99999] shadow-[0_0_10px_#22d3ee]"
+            className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-500 via-cyan-400 to-purple-500 origin-left z-[99999] shadow-[0_0_15px_#22d3ee,0_0_30px_rgba(34,211,238,0.3)]"
             style={{ scaleX }}
         />
     );
@@ -684,9 +684,16 @@ export const NeuralThread: React.FC<{ scrollProgress: number }> = ({ scrollProgr
     <div className="fixed inset-0 pointer-events-none z-0 flex justify-center">
       <div className="w-0.5 h-full bg-slate-800/30 relative">
         <div 
-          className="absolute top-0 w-full bg-gradient-to-b from-orange-500 via-orange-400 to-transparent shadow-[0_0_15px_rgba(249,115,22,0.6)] transition-all duration-100 ease-out animate-glow-line-orange"
+          className="absolute top-0 w-full bg-gradient-to-b from-cyan-500 via-cyan-400 to-transparent shadow-[0_0_15px_rgba(34,211,238,0.6),0_0_30px_rgba(34,211,238,0.2)] transition-all duration-100 ease-out animate-glow-line"
           style={{ height: `${scrollProgress * 100}%` }}
         />
+        {/* Glowing tip */}
+        {scrollProgress > 0.01 && (
+          <div 
+            className="absolute w-2 h-2 -left-[3px] bg-cyan-400 rounded-full shadow-[0_0_10px_#22d3ee,0_0_20px_#22d3ee]"
+            style={{ top: `${scrollProgress * 100}%` }}
+          />
+        )}
       </div>
     </div>
   );
@@ -697,10 +704,13 @@ export const NeuralNode: React.FC<{ active: boolean }> = ({ active }) => {
     <div className={`
       relative z-10 w-4 h-4 rounded-full border-2 
       transition-all duration-700 ease-in-out
-      ${active ? 'border-cyan-400 bg-obsidian shadow-[0_0_20px_rgba(34,211,238,0.8)] scale-125' : 'border-slate-700 bg-obsidian scale-100'}
+      ${active ? 'border-cyan-400 bg-cyan-500/30 shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.3)] scale-125' : 'border-slate-700 bg-obsidian scale-100'}
     `}>
       {active && (
-        <div className="absolute inset-0 rounded-full animate-ping bg-cyan-500/30" />
+        <>
+          <div className="absolute inset-0 rounded-full animate-ping bg-cyan-500/30" />
+          <div className="absolute inset-[-4px] rounded-full border border-cyan-500/20 animate-ping-slow" />
+        </>
       )}
     </div>
   );
@@ -714,16 +724,22 @@ export const ExpanseWindow: React.FC<{ children: React.ReactNode; className?: st
         bg-charcoal/40 backdrop-blur-md 
         border border-white/5 
         transition-all duration-500 ease-out
-        hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.2)] hover:scale-[1.02]
+        hover:border-cyan-400/50 hover:shadow-[0_0_40px_rgba(34,211,238,0.15),inset_0_0_30px_rgba(34,211,238,0.05)] hover:scale-[1.02]
         ${className}
       `}
       style={style}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-cyan-500/0 group-hover:border-cyan-500/50 group-hover:w-4 group-hover:h-4 transition-all duration-500" />
-      <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-cyan-500/0 group-hover:border-cyan-500/50 group-hover:w-4 group-hover:h-4 transition-all duration-500" />
-      <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-cyan-500/0 group-hover:border-cyan-500/50 group-hover:w-4 group-hover:h-4 transition-all duration-500" />
-      <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-cyan-500/0 group-hover:border-cyan-500/50 group-hover:w-4 group-hover:h-4 transition-all duration-500" />
+      {/* Gradient overlay on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      
+      {/* Corner decorations that expand on hover */}
+      <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-cyan-500/0 group-hover:border-cyan-500/50 group-hover:w-6 group-hover:h-6 transition-all duration-500" />
+      <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-cyan-500/0 group-hover:border-cyan-500/50 group-hover:w-6 group-hover:h-6 transition-all duration-500" />
+      <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-cyan-500/0 group-hover:border-cyan-500/50 group-hover:w-6 group-hover:h-6 transition-all duration-500" />
+      <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-cyan-500/0 group-hover:border-cyan-500/50 group-hover:w-6 group-hover:h-6 transition-all duration-500" />
+      
+      {/* Top accent line */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 group-hover:w-1/2 h-[1px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent transition-all duration-700" />
       {children}
     </div>
   );

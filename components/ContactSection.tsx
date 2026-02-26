@@ -56,16 +56,23 @@ export const ContactSection = ({ active }: { active: boolean }) => {
       </div>
 
       <div className="w-full max-w-2xl px-6">
-        <div className="relative bg-black rounded-2xl border border-slate-800 p-8 md:p-12 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+        <div className="relative bg-black rounded-2xl border border-slate-800 p-8 md:p-12 overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.8)] holo-shimmer">
           {/* Reactor Core Visual */}
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-50" />
-          <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-50" />
+          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-60 shadow-[0_0_10px_#22d3ee]" />
+          <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-60 shadow-[0_0_10px_#22d3ee]" />
+          
+          {/* Corner accents */}
+          <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-cyan-500/30" />
+          <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-cyan-500/30" />
+          <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-cyan-500/30" />
+          <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-cyan-500/30" />
           
           <div className="text-center mb-10">
-            <div className="inline-block p-4 rounded-full bg-cyan-950/30 border border-cyan-500/20 mb-4 animate-pulse">
+            <div className="inline-block p-4 rounded-full bg-gradient-to-br from-cyan-950/30 to-purple-950/20 border border-cyan-500/20 mb-4 animate-pulse relative">
                <Mail className="text-cyan-400" size={32} />
+               <div className="absolute inset-0 rounded-full border border-cyan-500/10 animate-ping-slow" />
             </div>
-            <h2 className={`text-3xl font-bold text-white mb-2 transition-all duration-700 ${active ? 'drop-shadow-[0_0_15px_rgba(34,211,238,0.6)]' : ''}`}>
+            <h2 className={`text-3xl font-bold text-white mb-2 transition-all duration-700 ${active ? 'text-glow-strong' : ''}`}>
               <DecryptionText text="PULSE EMITTER" />
             </h2>
             <div className="flex justify-center gap-4 mt-4">

@@ -30,17 +30,15 @@ const HUDOverlay = ({ activeSection, coordRef }: { activeSection: string, coordR
     <div className="fixed inset-0 pointer-events-none z-[100] p-4 md:p-8 flex flex-col justify-between overflow-hidden">
       {/* CRT Scanline Effect */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] pointer-events-none opacity-20" />
-      {/* Scanning Laser */}
-      <div className="absolute top-0 left-0 w-full h-[2px] bg-cyan-500/30 opacity-50 shadow-[0_0_10px_#22d3ee] animate-scan" />
 
       {/* Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_60%,rgba(5,5,5,0.8)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_50%,rgba(5,5,5,0.85)_100%)]" />
 
       {/* Top Bar */}
       <div className="flex justify-between items-start relative z-10">
-        <div className="border-t-2 border-l-2 border-cyan-500/30 w-8 h-8 md:w-16 md:h-16 rounded-tl-lg" />
-        <div className="bg-cyan-900/10 px-4 py-1 rounded-full border border-cyan-500/20 backdrop-blur-md flex items-center gap-2">
-          <div className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" />
+        <div className="border-t-2 border-l-2 border-cyan-500/40 w-8 h-8 md:w-16 md:h-16 rounded-tl-lg shadow-[0_0_5px_rgba(34,211,238,0.1)]" />
+        <div className="bg-cyan-900/10 px-4 py-1.5 rounded-full border border-cyan-500/25 backdrop-blur-md flex items-center gap-2 shadow-[0_0_15px_rgba(34,211,238,0.1)]">
+          <div className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse shadow-[0_0_6px_#22d3ee]" />
           <span className="text-cyan-400 font-mono text-[10px] md:text-xs tracking-[0.2em] transition-all duration-300">{activeSection.toUpperCase()}</span>
         </div>
         <div className="flex flex-col items-end">
@@ -103,12 +101,12 @@ const SideNav = ({ activeSection, scrollTo }: { activeSection: string, scrollTo:
           <div className={`
             w-3 h-3 rotate-45 border transition-all duration-300 relative
             ${activeSection === section.id 
-              ? 'bg-cyan-500 border-cyan-500 shadow-[0_0_10px_#22d3ee] scale-110' 
-              : 'border-slate-700 bg-obsidian group-hover:border-cyan-500/50'
+              ? 'bg-cyan-500 border-cyan-500 shadow-[0_0_12px_#22d3ee,0_0_24px_rgba(34,211,238,0.3)] scale-110' 
+              : 'border-slate-700 bg-obsidian group-hover:border-cyan-500/50 group-hover:bg-cyan-950/30'
             }
           `}>
             {activeSection === section.id && (
-              <div className="absolute inset-0 border border-cyan-400 rounded-full animate-ping opacity-75" />
+              <div className="absolute inset-[-4px] border border-cyan-400/40 rounded-sm animate-ping opacity-75" />
             )}
           </div>
         </button>
@@ -359,15 +357,15 @@ const App: React.FC = () => {
         </div>
       </main>
 \
-      <footer className="fixed bottom-0 left-0 w-full border-t border-white/5 bg-obsidian/80 backdrop-blur-md py-2 px-6 flex justify-between items-center text-[10px] md:text-xs font-mono text-slate-500 z-[110]">
+      <footer className="fixed bottom-0 left-0 w-full border-t border-cyan-500/10 bg-obsidian/90 backdrop-blur-md py-2 px-6 flex justify-between items-center text-[10px] md:text-xs font-mono text-slate-500 z-[110]">
         <div>
-          SYS.STATUS: <span className="text-cyan-500 animate-pulse">OPTIMAL</span>
+          SYS.STATUS: <span className="text-cyan-500 animate-pulse text-glow">OPTIMAL</span>
         </div>
-        <div>
+        <div className="text-slate-600">
            CMD: CTRL+K TO ACCESS TERMINAL
         </div>
         <div>
-          ID: UNIFIED_NEURAL_FLOW_V1.0
+          ID: <span className="text-cyan-600">UNIFIED_NEURAL_FLOW_V1.0</span>
         </div>
       </footer>
     </div>

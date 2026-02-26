@@ -8,20 +8,21 @@ export const ServicesSection = ({ active }: { active: boolean }) => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
   return (
-    <section className="min-h-screen flex flex-col items-center py-24 relative z-10">
+    <section className="min-h-screen flex flex-col items-center py-24 relative z-10 section-gradient">
       <OrderModal 
         service={selectedService} 
         onClose={() => setSelectedService(null)} 
         key={selectedService?.id || 'modal-reset'} 
       />
+      {active && <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px] bg-purple-500/5 rounded-full blur-[120px] pointer-events-none" />}
       
       <div className="flex items-center gap-4 mb-16">
-        <div className="h-[1px] w-12 bg-slate-700"></div>
+        <div className={`h-[1px] w-12 bg-gradient-to-r from-transparent to-cyan-500/50 transition-all duration-700 ${active ? 'w-20' : 'w-12'}`}></div>
         <NeuralNode active={active} />
-        <h2 className={`text-3xl font-bold text-white transition-all duration-700 ${active ? 'drop-shadow-[0_0_15px_rgba(34,211,238,0.6)]' : 'text-slate-400'}`}>
+        <h2 className={`text-3xl font-bold text-white transition-all duration-700 ${active ? 'text-glow-strong' : 'text-slate-400'}`}>
            <DecryptionText text="GET YOUR SYSTEM BUILT" />
         </h2>
-        <div className="h-[1px] w-12 bg-slate-700"></div>
+        <div className={`h-[1px] w-12 bg-gradient-to-l from-transparent to-cyan-500/50 transition-all duration-700 ${active ? 'w-20' : 'w-12'}`}></div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl w-full px-6">

@@ -4,12 +4,13 @@ import { DecryptionText, HoloCard, NeuralNode } from './NeuralCore';
 import { EDUCATION } from '../constants';
 
 export const EducationSection = ({ active }: { active: boolean }) => (
-  <section className="min-h-[50vh] flex flex-col items-center justify-center py-20 relative z-10">
+  <section className="min-h-[50vh] flex flex-col items-center justify-center py-20 relative z-10 section-gradient">
     <div className="flex flex-col items-center mb-16">
       <NeuralNode active={active} />
-      <h2 className={`mt-6 text-3xl font-bold tracking-widest uppercase transition-all duration-700 ${active ? 'text-cyan-400 tracking-[0.2em] drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]' : 'text-slate-600'}`}>
+      <h2 className={`mt-6 text-3xl font-bold tracking-widest uppercase transition-all duration-700 ${active ? 'text-cyan-400 tracking-[0.2em] text-glow-strong' : 'text-slate-600'}`}>
          <DecryptionText text="ACADEMIC DATA" />
       </h2>
+      <div className={`mt-3 w-20 h-[1px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent transition-opacity duration-700 ${active ? 'opacity-100' : 'opacity-0'}`} />
     </div>
 
     <div className="w-full max-w-4xl px-4">

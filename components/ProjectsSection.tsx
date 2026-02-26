@@ -1,8 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ExternalLink, Maximize2, X, AlertTriangle, Monitor } from 'lucide-react';
 import { DecryptionText, HoloCard, NeuralNode } from './NeuralCore';
 import { PROJECTS } from '../constants';
 import { Project } from '../types';
+
+const useInView = (options?: IntersectionObserverInit) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsInView(true);
+        observer.disconnect();
+      }
+    }, { rootMargin: '200px', ...options });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, isInView };
+};
 
 const LivePreviewModal = ({ project, onClose }: { project: Project | null, onClose: () => void }) => {
     if (!project) return null;
@@ -46,15 +66,25 @@ const LivePreviewModal = ({ project, onClose }: { project: Project | null, onClo
 };
 
 const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string, project: Project, index: number, activeSection: boolean, onExpand: (p: Project) => void }) => {
-    
+    const { ref, isInView } = useInView();
+    const [loadIframe, setLoadIframe] = useState(false);
+
+    // Stagger iframe loading: each card waits (index * 800ms) after becoming visible
+    useEffect(() => {
+      if (!isInView) return;
+      const delay = setTimeout(() => setLoadIframe(true), index * 800);
+      return () => clearTimeout(delay);
+    }, [isInView, index]);
+
     return (
         <div 
+          ref={ref}
           className={`transform transition-all duration-700 ease-out ${
             activeSection 
               ? 'opacity-100 translate-y-0' 
               : 'opacity-0 translate-y-20'
           }`}
-          style={{ transitionDelay: `${index * 150}ms` }}
+          style={{ transitionDelay: `${index * 150}ms`, contentVisibility: 'auto' }}
         >
           <HoloCard className="h-[500px]">
             <div className="h-full flex flex-col group relative">
@@ -66,15 +96,17 @@ const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string
                         </span>
                      </div>
 
-                     <div className="absolute inset-0 w-[400%] h-[400%] origin-top-left scale-[0.25] z-10">
-                        <iframe 
-                            src={project.link} 
-                            title={project.title}
-                            className="w-full h-full border-0 bg-white" 
-                            sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-                            loading="lazy"
-                        />
-                     </div>
+                     {loadIframe && (
+                       <div className="absolute inset-0 w-[400%] h-[400%] origin-top-left scale-[0.25] z-10" style={{ willChange: 'transform' }}>
+                          <iframe 
+                              src={project.link} 
+                              title={project.title}
+                              className="w-full h-full border-0 bg-white" 
+                              sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                              loading="lazy"
+                          />
+                       </div>
+                     )}
 
                      <div className="absolute top-2 right-2 z-20 flex gap-2">
                         <div className="flex items-center gap-1 bg-black/60 backdrop-blur border border-cyan-500/30 px-2 py-1 rounded text-cyan-400">
@@ -133,16 +165,17 @@ export const ProjectsSection = ({ active }: { active: boolean }) => {
   const [expandedProject, setExpandedProject] = useState<Project | null>(null);
 
   return (
-      <section className="min-h-screen flex flex-col items-center py-24 relative z-10">
+      <section className="min-h-screen flex flex-col items-center py-24 relative z-10 section-gradient">
         <LivePreviewModal project={expandedProject} onClose={() => setExpandedProject(null)} />
+        {active && <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none" />}
 
         <div className="flex items-center gap-4 mb-16">
-          <div className="h-[1px] w-12 bg-slate-700"></div>
+          <div className={`h-[1px] w-12 bg-gradient-to-r from-transparent to-cyan-500/50 transition-all duration-700 ${active ? 'w-20' : 'w-12'}`}></div>
           <NeuralNode active={active} />
-          <h2 className={`text-3xl font-bold text-white transition-all duration-700 ${active ? 'drop-shadow-[0_0_15px_rgba(34,211,238,0.6)]' : 'text-slate-400'}`}>
+          <h2 className={`text-3xl font-bold text-white transition-all duration-700 ${active ? 'text-glow-strong' : 'text-slate-400'}`}>
             <DecryptionText text="KEY DEPLOYMENTS" />
           </h2>
-          <div className="h-[1px] w-12 bg-slate-700"></div>
+          <div className={`h-[1px] w-12 bg-gradient-to-l from-transparent to-cyan-500/50 transition-all duration-700 ${active ? 'w-20' : 'w-12'}`}></div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl w-full px-6">

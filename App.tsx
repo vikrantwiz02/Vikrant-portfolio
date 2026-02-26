@@ -272,14 +272,15 @@ const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKey);
   }, [activeSection, terminalOpen]);
 
-  // Dynamic Title
+  // Dynamic Title - SEO optimized
   useEffect(() => {
-    const originalTitle = document.title;
+    const seoTitle = 'Vikrant Kumar | Full Stack Developer | Portfolio – React, Next.js, Node.js, Python, AWS';
+    document.title = seoTitle;
     const handleVisibilityChange = () => {
         if (document.hidden) {
-            document.title = "SIGNAL LOST... | Reconnecting";
+            document.title = "Come back! | Vikrant Kumar – Full Stack Developer";
         } else {
-            document.title = originalTitle;
+            document.title = seoTitle;
         }
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -320,41 +321,41 @@ const App: React.FC = () => {
       <SystemLogger />
 
       <main className="relative z-10 w-full max-w-7xl mx-auto flex flex-col">
-        <div id="hero">
+        <section id="hero" aria-label="Introduction">
           <HeroSection isScrolling={isScrolling} />
-        </div>
+        </section>
 
-        <div id="about">
+        <section id="about" aria-label="About Vikrant Kumar">
           <AboutSection active={activeSection === 'about'} />
-        </div>
+        </section>
 
-        <div id="experience">
+        <section id="experience" aria-label="Work Experience">
           <ExperienceSection active={activeSection === 'experience'} />
-        </div>
+        </section>
 
-        <div id="education">
+        <section id="education" aria-label="Education">
           <EducationSection active={activeSection === 'education'} />
-        </div>
+        </section>
 
-        <div id="skills">
+        <section id="skills" aria-label="Technical Skills">
           <SkillsSection active={activeSection === 'skills'} />
-        </div>
+        </section>
 
-        <div id="projects">
+        <section id="projects" aria-label="Projects">
           <ProjectsSection active={activeSection === 'projects'} />
-        </div>
+        </section>
 
-        <div id="achievements">
+        <section id="achievements" aria-label="Achievements & Certifications">
           <AchievementsSection active={activeSection === 'achievements'} />
-        </div>
+        </section>
 
-        <div id="services">
+        <section id="services" aria-label="Web Development Services">
           <ServicesSection active={activeSection === 'services'} />
-        </div>
+        </section>
 
-        <div id="contact">
+        <section id="contact" aria-label="Contact Vikrant Kumar">
           <ContactSection active={activeSection === 'contact'} />
-        </div>
+        </section>
       </main>
 \
       <footer className="fixed bottom-0 left-0 w-full border-t border-cyan-500/10 bg-obsidian/90 backdrop-blur-md py-2 px-6 flex justify-between items-center text-[10px] md:text-xs font-mono text-slate-500 z-[110]">

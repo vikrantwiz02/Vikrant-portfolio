@@ -69,7 +69,6 @@ const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string
     const { ref, isInView } = useInView();
     const [loadIframe, setLoadIframe] = useState(false);
 
-    // Stagger iframe loading: each card waits (index * 800ms) after becoming visible
     useEffect(() => {
       if (!isInView) return;
       const delay = setTimeout(() => setLoadIframe(true), index * 800);

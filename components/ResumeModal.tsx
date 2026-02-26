@@ -81,7 +81,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               </button>
 
               <a
-                href="/Vikrant__Resume.pdf"
+                href="/Vikrant-Resume.pdf"
                 download="Vikrant_Kumar_Resume.pdf"
                 className="flex items-center gap-1 md:gap-2 px-3 md:px-4 py-2 rounded-lg border border-cyan-500/50 bg-cyan-950/30 text-cyan-400 font-mono text-[10px] md:text-xs tracking-wider hover:bg-cyan-500/20 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all duration-300"
               >
@@ -131,7 +131,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
             {isMobile ? (
               <div className="w-full h-full flex flex-col">
                 <iframe
-                  src={`https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + '/Vikrant__Resume.pdf')}&embedded=true`}
+                  src={`https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + '/Vikrant-Resume.pdf')}&embedded=true`}
                   className="w-full h-full border-0"
                   title="Resume"
                   onLoad={() => setIsLoading(false)}
@@ -139,7 +139,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
                 <div className="absolute bottom-16 left-0 right-0 flex justify-center pointer-events-none">
                   <a
-                    href="/Vikrant__Resume.pdf"
+                    href="/Vikrant-Resume.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="pointer-events-auto flex items-center gap-2 px-4 py-2 rounded-lg border border-cyan-500/50 bg-slate-950/90 text-cyan-400 font-mono text-xs tracking-wider hover:bg-cyan-500/20 transition-all duration-300 opacity-0 hover:opacity-100 focus:opacity-100"
@@ -151,7 +151,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               </div>
             ) : (
               <iframe
-                src="/Vikrant__Resume.pdf#toolbar=0&navpanes=0"
+                src="/Vikrant-Resume.pdf#toolbar=0&navpanes=0"
                 className="w-full h-full"
                 title="Resume"
                 onLoad={() => setIsLoading(false)}

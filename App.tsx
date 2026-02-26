@@ -274,7 +274,7 @@ const App: React.FC = () => {
 
   // Dynamic Title - SEO optimized
   useEffect(() => {
-    const seoTitle = 'Vikrant Kumar | Full Stack Developer | Portfolio – React, Next.js, Node.js, Python, AWS';
+    const seoTitle = 'Vikrant Kumar | Full Stack Developer & Software Engineer | IIIT Jabalpur | React, Next.js, Node.js, Python, AWS';
     document.title = seoTitle;
     const handleVisibilityChange = () => {
         if (document.hidden) {

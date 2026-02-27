@@ -83,7 +83,7 @@ const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string
               ? 'opacity-100 translate-y-0' 
               : 'opacity-0 translate-y-20'
           }`}
-          style={{ transitionDelay: `${index * 150}ms`, contentVisibility: 'auto' }}
+          style={{ transitionDelay: `${index * 150}ms` }}
         >
           <HoloCard className="h-[500px]">
             <div className="h-full flex flex-col group relative">

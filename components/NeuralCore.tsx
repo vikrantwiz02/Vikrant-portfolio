@@ -1,21 +1,33 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
+// Shared AudioContext — created once on first user gesture, reused thereafter
+let _sharedCtx: AudioContext | null = null;
+const getAudioContext = (): AudioContext | null => {
+  try {
+    const AC = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AC) return null;
+    if (!_sharedCtx) _sharedCtx = new AC();
+    if (_sharedCtx.state === 'suspended') _sharedCtx.resume();
+    return _sharedCtx;
+  } catch {
+    return null;
+  }
+};
+
 export const useAudio = () => {
   const playSound = useCallback((type: 'hover' | 'click' | 'type') => {
     try {
-      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-      if (!AudioContext) return;
-      
-      const ctx = new AudioContext();
+      const ctx = getAudioContext();
+      if (!ctx) return;
+
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      
       osc.connect(gain);
       gain.connect(ctx.destination);
-      
+
       const now = ctx.currentTime;
-      
+
       if (type === 'hover') {
         osc.type = 'sine';
         osc.frequency.setValueAtTime(800, now);
@@ -33,17 +45,18 @@ export const useAudio = () => {
         osc.start(now);
         osc.stop(now + 0.1);
       } else if (type === 'type') {
-         osc.type = 'triangle';
-         osc.frequency.setValueAtTime(600, now);
-         gain.gain.setValueAtTime(0.01, now);
-         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
-         osc.start(now);
-         osc.stop(now + 0.03);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(600, now);
+        gain.gain.setValueAtTime(0.01, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+        osc.start(now);
+        osc.stop(now + 0.03);
       }
-    } catch (e) {
+    } catch {
+      // silently ignore
     }
   }, []);
-  
+
   return playSound;
 };
 

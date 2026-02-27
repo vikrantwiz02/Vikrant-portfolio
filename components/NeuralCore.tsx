@@ -432,7 +432,7 @@ export const Constellation: React.FC = () => {
 /* --- 8. Hex Skill Node --- */
 export const HexNode: React.FC<{ level: number, label: string, icon: React.ElementType }> = ({ level, label, icon: Icon }) => {
     return (
-        <div className="flex flex-col items-center gap-2 group cursor-none">
+        <div className="flex flex-col items-center gap-2 group">
             <div className="relative w-24 h-24 flex items-center justify-center">
                 {/* Hexagon Shape */}
                 <div className="absolute inset-0 bg-slate-800 hex-node transform scale-90 group-hover:scale-100 transition-transform duration-300" />
@@ -646,15 +646,6 @@ export const SystemLogger: React.FC = () => {
         window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  return (
-    <div className="fixed bottom-12 right-6 w-48 font-mono text-[9px] text-cyan-900 pointer-events-none z-50 hidden md:block">
-       <div className="border-b border-cyan-900/30 mb-1">SYS_LOG_STREAM</div>
-       {logs.map((log, i) => (
-           <div key={i} className="opacity-70 truncate"> {`> ${log}`} </div>
-       ))}
-    </div>
-  );
 };
 
 export const FloatingRunes: React.FC = () => {

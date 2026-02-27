@@ -27,7 +27,7 @@ const HUDOverlay = ({ activeSection, coordRef }: { activeSection: string, coordR
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[100] p-4 md:p-8 flex flex-col justify-between overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none z-[100] px-4 pb-4 pt-16 md:px-8 md:pb-8 md:pt-16 flex flex-col justify-between overflow-hidden">
       {/* CRT Scanline Effect */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] pointer-events-none opacity-20" />
 
@@ -37,10 +37,6 @@ const HUDOverlay = ({ activeSection, coordRef }: { activeSection: string, coordR
       {/* Top Bar */}
       <div className="flex justify-between items-start relative z-10">
         <div className="border-t-2 border-l-2 border-cyan-500/40 w-8 h-8 md:w-16 md:h-16 rounded-tl-lg shadow-[0_0_5px_rgba(34,211,238,0.1)]" />
-        <div className="bg-cyan-900/10 px-4 py-1.5 rounded-full border border-cyan-500/25 backdrop-blur-md flex items-center gap-2 shadow-[0_0_15px_rgba(34,211,238,0.1)]">
-          <div className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse shadow-[0_0_6px_#22d3ee]" />
-          <span className="text-cyan-400 font-mono text-[10px] md:text-xs tracking-[0.2em] transition-all duration-300">{activeSection.toUpperCase()}</span>
-        </div>
         <div className="flex flex-col items-end">
             <div className="border-t-2 border-r-2 border-cyan-500/30 w-8 h-8 md:w-16 md:h-16 rounded-tr-lg" />
             <div className="font-mono text-[9px] text-cyan-400 mt-[-20px] mr-2 hidden md:block">{time}</div>
@@ -50,32 +46,21 @@ const HUDOverlay = ({ activeSection, coordRef }: { activeSection: string, coordR
       {/* Center Reticle (Very Subtle) */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vh] border border-cyan-500/5 rounded-[3rem] pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 border border-cyan-500/20 opacity-50" />
-      
-      {/* Bottom Bar */}
-      <div className="flex justify-between items-end relative z-10">
-        <div className="border-b-2 border-l-2 border-cyan-500/30 w-8 h-8 md:w-16 md:h-16 rounded-bl-lg" />
-        <div className="font-mono text-[9px] md:text-[10px] text-cyan-500/40 text-right">
-            <div ref={coordRef}>COORD: 0</div>
-            SYS_INTEGRITY: 100% <br/>
-            LATENCY: 12ms
-        </div>
-        <div className="border-b-2 border-r-2 border-cyan-500/30 w-8 h-8 md:w-16 md:h-16 rounded-br-lg" />
-      </div>
     </div>
   );
 };
 
 const SideNav = ({ activeSection, scrollTo }: { activeSection: string, scrollTo: (id: string) => void }) => {
   const sections = useMemo(() => [
-    { id: 'hero', label: 'SYSTEM_ROOT' },
-    { id: 'about', label: 'IDENTITY' },
-    { id: 'experience', label: 'EXEC_LOG' },
-    { id: 'education', label: 'ACADEMIA' },
-    { id: 'skills', label: 'MODULES' },
-    { id: 'projects', label: 'DEPLOYMENTS' },
-    { id: 'achievements', label: 'AWARDS' },
-    { id: 'services', label: 'UPGRADES' },
-    { id: 'contact', label: 'LINK' },
+    { id: 'hero', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'education', label: 'Education' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'achievements', label: 'Achievements' },
+    { id: 'services', label: 'Services' },
+    { id: 'contact', label: 'Contact' },
   ], []);
 
   return (
@@ -88,10 +73,10 @@ const SideNav = ({ activeSection, scrollTo }: { activeSection: string, scrollTo:
         >
           {/* Label (Visible on hover or active) */}
           <span className={`
-            text-[10px] font-mono tracking-widest transition-all duration-300 absolute right-8
+            text-[11px] font-mono tracking-widest transition-all duration-300 absolute right-8 whitespace-nowrap
             ${activeSection === section.id 
-              ? 'opacity-100 text-cyan-400 translate-x-0' 
-              : 'opacity-0 translate-x-4 text-slate-500 group-hover:opacity-100 group-hover:translate-x-0'
+              ? 'opacity-100 text-cyan-300 translate-x-0 drop-shadow-[0_0_8px_rgba(34,211,238,0.9)]' 
+              : 'opacity-0 pointer-events-none translate-x-2'
             }
           `}>
             {section.label}
@@ -101,8 +86,8 @@ const SideNav = ({ activeSection, scrollTo }: { activeSection: string, scrollTo:
           <div className={`
             w-3 h-3 rotate-45 border transition-all duration-300 relative
             ${activeSection === section.id 
-              ? 'bg-cyan-500 border-cyan-500 shadow-[0_0_12px_#22d3ee,0_0_24px_rgba(34,211,238,0.3)] scale-110' 
-              : 'border-slate-700 bg-obsidian group-hover:border-cyan-500/50 group-hover:bg-cyan-950/30'
+              ? 'bg-cyan-400 border-cyan-400 shadow-[0_0_16px_#22d3ee,0_0_32px_rgba(34,211,238,0.6),0_0_48px_rgba(34,211,238,0.3)] scale-125' 
+              : 'border-slate-700 bg-obsidian'
             }
           `}>
             {activeSection === section.id && (
@@ -119,15 +104,15 @@ const SideNav = ({ activeSection, scrollTo }: { activeSection: string, scrollTo:
 const MobileMenu = ({ activeSection, scrollTo }: { activeSection: string, scrollTo: (id: string) => void }) => {
   const [isOpen, setIsOpen] = useState(false);
   const sections = useMemo(() => [
-    { id: 'hero', label: 'SYSTEM_ROOT' },
-    { id: 'about', label: 'IDENTITY' },
-    { id: 'experience', label: 'EXEC_LOG' },
-    { id: 'education', label: 'ACADEMIA' },
-    { id: 'skills', label: 'MODULES' },
-    { id: 'projects', label: 'DEPLOYMENTS' },
-    { id: 'achievements', label: 'AWARDS' },
-    { id: 'services', label: 'UPGRADES' },
-    { id: 'contact', label: 'LINK' },
+    { id: 'hero', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'education', label: 'Education' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'achievements', label: 'Achievements' },
+    { id: 'services', label: 'Services' },
+    { id: 'contact', label: 'Contact' },
   ], []);
 
   const handleNavClick = (id: string) => {
@@ -140,23 +125,55 @@ const MobileMenu = ({ activeSection, scrollTo }: { activeSection: string, scroll
       {/* Trigger Button */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-6 right-6 z-[120] p-3 rounded-full bg-obsidian/80 border border-cyan-500/30 text-cyan-400 backdrop-blur-md shadow-[0_0_15px_rgba(34,211,238,0.2)]"
+        className="fixed top-4 right-4 z-[150] p-2.5 rounded-full bg-obsidian/90 border border-cyan-500/40 text-cyan-400 backdrop-blur-md shadow-[0_0_15px_rgba(34,211,238,0.3)]"
       >
-        {isOpen ? <X size={24} /> : <Menu size={24} />}
+        {isOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
-      {/* Overlay */}
-      <div className={`fixed inset-0 bg-obsidian/95 backdrop-blur-xl z-[110] transition-transform duration-500 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="flex flex-col items-center justify-center h-full gap-8">
-           {sections.map((section) => (
-             <button
-               key={section.id}
-               onClick={() => handleNavClick(section.id)}
-               className={`text-xl font-mono tracking-widest uppercase transition-all duration-300 ${activeSection === section.id ? 'text-cyan-400 scale-110 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]' : 'text-slate-500'}`}
-             >
-               {section.label}
-             </button>
-           ))}
+      {/* Backdrop */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[138]"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Drawer */}
+      <div className={`fixed top-0 right-0 h-full w-64 bg-obsidian border-l border-cyan-500/20 z-[139] flex flex-col shadow-[-8px_0_40px_rgba(0,0,0,0.6)] transition-transform duration-400 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 h-16 border-b border-slate-800/60 shrink-0">
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 bg-cyan-500 rounded-full shadow-[0_0_6px_#22d3ee]" />
+            <span className="text-xs font-mono text-slate-400 tracking-widest uppercase">Navigation</span>
+          </div>
+        </div>
+
+        {/* Nav Links */}
+        <nav className="flex flex-col flex-1 px-4 py-6 gap-1 overflow-y-auto">
+          {sections.map((section) => (
+            <button
+              key={section.id}
+              onClick={() => handleNavClick(section.id)}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded text-left transition-all duration-200 group ${
+                activeSection === section.id
+                  ? 'bg-cyan-500/10 text-cyan-400 border-l-2 border-cyan-400'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border-l-2 border-transparent'
+              }`}
+            >
+              <span className={`w-1 h-1 rounded-full transition-colors ${activeSection === section.id ? 'bg-cyan-400' : 'bg-slate-600 group-hover:bg-slate-400'}`} />
+              <span className="text-xs font-mono tracking-widest uppercase">{section.label}</span>
+            </button>
+          ))}
+        </nav>
+
+        {/* Footer CTA */}
+        <div className="px-4 py-5 border-t border-slate-800/60 shrink-0">
+          <button
+            onClick={() => handleNavClick('services')}
+            className="w-full py-2.5 bg-cyan-500/10 hover:bg-cyan-500 text-cyan-400 hover:text-black text-xs font-semibold font-mono tracking-widest uppercase rounded border border-cyan-500/30 hover:border-cyan-500 transition-all duration-300"
+          >
+            Services &amp; Pricing
+          </button>
         </div>
       </div>
     </div>
@@ -292,8 +309,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-obsidian text-white selection:bg-cyan-500/30 selection:text-cyan-200 cursor-none overflow-x-hidden">
-      <CyberCursor />
+    <div className="relative min-h-screen bg-obsidian text-white selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden">
       <ScrollProgress />
       <SonarPulse />
       <IdleScreen />
@@ -320,7 +336,7 @@ const App: React.FC = () => {
       <MobileMenu activeSection={activeSection} scrollTo={scrollToSection} />
       <SystemLogger />
 
-      <main className="relative z-10 w-full max-w-7xl mx-auto flex flex-col">
+      <main className="relative z-10 w-full max-w-7xl mx-auto flex flex-col pt-16">
         <section id="hero" aria-label="Introduction">
           <HeroSection isScrolling={isScrolling} />
         </section>
@@ -366,9 +382,30 @@ const App: React.FC = () => {
            CMD: CTRL+K TO ACCESS TERMINAL
         </div>
         <div>
-          ID: <span className="text-cyan-600">UNIFIED_NEURAL_FLOW_V1.0</span>
+          ID: <span className="text-cyan-600">vikrantwiz02</span>
         </div>
       </footer>
+
+      {/* Top Navigation Bar */}
+      <nav className="fixed top-0 left-0 w-full z-[120] bg-obsidian/80 backdrop-blur-xl border-b border-slate-800/50 transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+          <button onClick={() => scrollToSection('hero')} className="flex items-center gap-2 cursor-pointer">
+            <div className="w-2 h-2 bg-cyan-500 rounded-full shadow-[0_0_6px_#22d3ee]" />
+            <span className="text-white font-bold text-sm md:text-base tracking-tight">Vikrant Kumar</span>
+            <span className="text-slate-500 text-xs font-mono hidden md:inline">/ Full Stack Developer</span>
+          </button>
+          <div className="flex items-center gap-4 md:gap-6">
+            <button onClick={() => scrollToSection('projects')} className="text-slate-400 hover:text-white text-xs md:text-sm transition-colors cursor-pointer hidden md:block">Projects</button>
+            <button onClick={() => scrollToSection('contact')} className="text-slate-400 hover:text-white text-xs md:text-sm transition-colors cursor-pointer hidden md:block">Contact</button>
+            <button 
+              onClick={() => scrollToSection('services')}
+              className="hidden sm:block px-4 py-1.5 bg-cyan-500/10 hover:bg-cyan-500 text-cyan-400 hover:text-black text-xs md:text-sm font-semibold rounded border border-cyan-500/30 hover:border-cyan-500 transition-all duration-300 cursor-pointer whitespace-nowrap"
+            >
+              Services &amp; Pricing
+            </button>
+          </div>
+        </div>
+      </nav>
     </div>
   );
 };

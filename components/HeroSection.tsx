@@ -71,7 +71,7 @@ export const HeroSection = ({ isScrolling }: { isScrolling: boolean }) => {
           <WireframeTesseract />
       </div>
 
-      <div className="relative w-36 h-36 md:w-44 md:h-44 mb-12 z-20 group cursor-default mt-16 md:mt-0">
+      <div className="relative w-36 h-36 md:w-44 md:h-44 mb-12 z-20 group cursor-default mt-20 md:mt-8">
           {/* Outer Glow Ring */}
           <div className="absolute inset-[-20px] rounded-full bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10 blur-xl animate-gradient-shift opacity-60" />
           
@@ -93,8 +93,8 @@ export const HeroSection = ({ isScrolling }: { isScrolling: boolean }) => {
              {/* The Image */}
              <img 
                src={PROFILE_IMAGE} 
-               alt="Operator Identity" 
-               className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-out scale-105 group-hover:scale-100"
+               alt="Vikrant Kumar - Full Stack Developer" 
+               className="w-full h-full object-cover object-top grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-out group-hover:scale-105"
              />
              
              {/* Glitch Overlay Effect on Hover */}
@@ -152,10 +152,16 @@ export const HeroSection = ({ isScrolling }: { isScrolling: boolean }) => {
 
       <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
 
-      <p className="text-slate-500 max-w-md mx-auto mb-14 text-sm md:text-base leading-relaxed">
+      <p className="text-slate-500 max-w-md mx-auto mb-6 text-sm md:text-base leading-relaxed">
         Building scalable systems at IIIT Jabalpur. <br/>
         <span className="text-glow text-cyan-400/90 font-medium">Problem Solver • Full-Stack Architect • Tech Innovator</span>
       </p>
+
+      {/* Freelance status */}
+      <div className="mb-10 flex items-center gap-2 text-slate-500 text-sm">
+        <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+        <span>Available for freelance work</span>
+      </div>
 
       <div className="animate-bounce mt-2 text-cyan-500/60">
         <ChevronDown size={28} strokeWidth={1.5} />

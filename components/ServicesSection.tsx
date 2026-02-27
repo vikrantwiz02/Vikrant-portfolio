@@ -20,7 +20,7 @@ export const ServicesSection = ({ active }: { active: boolean }) => {
         <div className={`h-[1px] w-12 bg-gradient-to-r from-transparent to-cyan-500/50 transition-all duration-700 ${active ? 'w-20' : 'w-12'}`}></div>
         <NeuralNode active={active} />
         <h2 className={`text-3xl font-bold text-white transition-all duration-700 ${active ? 'text-glow-strong' : 'text-slate-400'}`}>
-           <DecryptionText text="GET YOUR SYSTEM BUILT" />
+           <DecryptionText text="SERVICES & PRICING" />
         </h2>
         <div className={`h-[1px] w-12 bg-gradient-to-l from-transparent to-cyan-500/50 transition-all duration-700 ${active ? 'w-20' : 'w-12'}`}></div>
       </div>
@@ -67,7 +67,7 @@ export const ServicesSection = ({ active }: { active: boolean }) => {
                    }}
                    className="w-full py-2 border border-cyan-500/30 bg-cyan-950/20 text-cyan-400 text-xs font-mono hover:bg-cyan-500 hover:text-white transition-all hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] relative z-20 cursor-pointer"
                 >
-                   INITIALIZE_REQUEST
+                   ORDER NOW →
                 </button>
               </div>
             </HoloCard>

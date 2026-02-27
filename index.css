@@ -1,0 +1,251 @@
+@import "tailwindcss";
+
+/* ===== Custom Theme ===== */
+@theme {
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-obsidian: #050505;
+  --color-charcoal: #0F1115;
+
+  --animate-pulse-fast: subtle-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-glow-line: glow 3s ease-in-out infinite;
+  --animate-glow-line-orange: glow-orange 3s ease-in-out infinite;
+  --animate-spin-slow: spin 12s linear infinite;
+  --animate-gradient-breathe: breathe 12s ease-in-out infinite;
+  --animate-particle: particle 1.5s ease-out infinite;
+  --animate-glitch: glitch 1s linear infinite;
+  --animate-float: float 10s ease-in-out infinite;
+  --animate-scan: scan 4s linear infinite;
+  --animate-ping-slow: ping 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-shimmer: shimmer 3s linear infinite;
+  --animate-gradient-shift: gradient-shift 6s ease infinite;
+  --animate-border-flow: border-flow 4s ease infinite;
+  --animate-text-glow: text-glow-pulse 4s ease-in-out infinite;
+  --animate-orbit: orbit 8s linear infinite;
+  --animate-orbit-reverse: orbit-reverse 12s linear infinite;
+
+  --background-image-grid-pattern: linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px);
+}
+
+/* ===== Keyframes ===== */
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+@keyframes glow {
+  0%, 100% { opacity: 0.4; box-shadow: 0 0 5px #22d3ee; }
+  50% { opacity: 1; box-shadow: 0 0 20px #22d3ee; }
+}
+
+@keyframes glow-orange {
+  0%, 100% { opacity: 0.4; box-shadow: 0 0 5px #f97316; }
+  50% { opacity: 1; box-shadow: 0 0 20px #f97316; }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.8; transform: scale(1) translateY(0); }
+  50% { opacity: 0.6; transform: scale(1.1) translateY(-2%); }
+}
+
+@keyframes particle {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(0); }
+  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1); }
+}
+
+@keyframes glitch {
+  2%, 64% { transform: translate(2px,0) skew(0deg); }
+  4%, 60% { transform: translate(-2px,0) skew(0deg); }
+  62% { transform: translate(0,0) skew(5deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes scan {
+  0% { top: 0%; }
+  100% { top: 100%; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes border-flow {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+}
+
+@keyframes text-glow-pulse {
+  0%, 100% { text-shadow: 0 0 20px rgba(34,211,238,0.3), 0 0 40px rgba(34,211,238,0.1); }
+  50% { text-shadow: 0 0 40px rgba(34,211,238,0.6), 0 0 80px rgba(34,211,238,0.3), 0 0 120px rgba(34,211,238,0.1); }
+}
+
+@keyframes orbit {
+  0% { transform: rotate(0deg) translateX(60px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(60px) rotate(-360deg); }
+}
+
+@keyframes orbit-reverse {
+  0% { transform: rotate(0deg) translateX(80px) rotate(0deg); }
+  100% { transform: rotate(-360deg) translateX(80px) rotate(360deg); }
+}
+
+/* ===== Base Styles ===== */
+body {
+  background-color: #050505;
+  color: #e2e8f0;
+  overflow-x: hidden;
+  transition: filter 0.5s ease-in-out;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #22d3ee; border-radius: 0px; }
+::-webkit-scrollbar-thumb:hover { background: #06b6d4; }
+
+/* Offset scroll targets so navbar doesn't cover section headings */
+section[id] {
+  scroll-margin-top: 60px;
+}
+
+/* ===== Glitch Text Effect ===== */
+.glitch-text { position: relative; }
+.glitch-text::before, .glitch-text::after {
+  content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
+}
+.glitch-text::before { color: #0ff; z-index: -1; animation: glitch-anim-1 2s infinite linear alternate-reverse; }
+.glitch-text::after { color: #f0f; z-index: -2; animation: glitch-anim-2 3s infinite linear alternate-reverse; }
+
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+  20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+  100% { clip-path: inset(30% 0 30% 0); transform: translate(1px, -1px); }
+}
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
+  100% { clip-path: inset(20% 0 70% 0); transform: translate(-2px, 1px); }
+}
+
+/* ===== Glitch Image Effect ===== */
+.glitch-img-container { position: relative; overflow: hidden; }
+.glitch-img-container:hover .glitch-img { opacity: 1; }
+.glitch-img {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;
+  mix-blend-mode: hard-light; transition: opacity 0.3s;
+}
+.glitch-img:nth-child(2) { background-color: rgba(255,0,0,0.5); transform: translate(5px, 0); }
+.glitch-img:nth-child(3) { background-color: rgba(0,255,0,0.5); transform: translate(-5px, 0); }
+.glitch-img:nth-child(4) { background-color: rgba(0,0,255,0.5); transform: translate(0, 5px); }
+
+/* ===== Hexagon Clip Path ===== */
+.hex-node {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* ===== Tesseract / Cube ===== */
+.scene-3d { perspective: 600px; width: 100px; height: 100px; }
+.cube { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; animation: rotate-cube 10s infinite linear; }
+.cube-face { position: absolute; width: 100px; height: 100px; border: 1px solid rgba(34, 211, 238, 0.5); background: rgba(34, 211, 238, 0.05); }
+.face-front  { transform: rotateY(  0deg) translateZ(50px); }
+.face-right  { transform: rotateY( 90deg) translateZ(50px); }
+.face-back   { transform: rotateY(180deg) translateZ(50px); }
+.face-left   { transform: rotateY(-90deg) translateZ(50px); }
+.face-top    { transform: rotateX( 90deg) translateZ(50px); }
+.face-bottom { transform: rotateX(-90deg) translateZ(50px); }
+@keyframes rotate-cube {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+/* ===== Gradient Text Effect ===== */
+.gradient-text {
+  background: linear-gradient(135deg, #22d3ee 0%, #a855f7 25%, #ec4899 50%, #22d3ee 75%, #a855f7 100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 6s ease infinite;
+}
+
+.gradient-text-cyan {
+  background: linear-gradient(90deg, #22d3ee, #67e8f9, #a5f3fc, #67e8f9, #22d3ee);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ===== Shimmer border effect ===== */
+.shimmer-border {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(90deg, transparent, rgba(34,211,238,0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+/* ===== Glow text effect ===== */
+.text-glow {
+  text-shadow: 0 0 20px rgba(34,211,238,0.4), 0 0 40px rgba(34,211,238,0.2);
+}
+.text-glow-strong {
+  text-shadow: 0 0 20px rgba(34,211,238,0.5), 0 0 60px rgba(34,211,238,0.3), 0 0 100px rgba(34,211,238,0.1);
+}
+
+/* ===== Animated gradient background for sections ===== */
+.section-gradient {
+  background: radial-gradient(ellipse at center, rgba(34,211,238,0.03) 0%, transparent 70%);
+}
+
+/* ===== Holographic shimmer on hover ===== */
+.holo-shimmer:hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(34,211,238,0.1) 45%, rgba(168,85,247,0.1) 50%, transparent 55%);
+  background-size: 250% 250%;
+  animation: shimmer 1.5s ease-in-out;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ===== Neon underline ===== */
+.neon-underline {
+  position: relative;
+}
+.neon-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #22d3ee, transparent);
+  box-shadow: 0 0 10px #22d3ee, 0 0 20px rgba(34,211,238,0.3);
+}
+
+/* ===== Floating particles ===== */
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-60px) translateX(20px); opacity: 0; }
+}

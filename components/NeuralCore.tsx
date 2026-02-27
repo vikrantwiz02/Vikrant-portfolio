@@ -263,12 +263,17 @@ export const IdleScreen: React.FC = () => {
     
     useEffect(() => {
         let timer: ReturnType<typeof setTimeout>;
+
+        const startTimer = () => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                if (!blocked.current) setIdle(true);
+            }, 20000);
+        };
+
         const resetTimer = () => {
             setIdle(false);
-            clearTimeout(timer);
-            if (!blocked.current) {
-                timer = setTimeout(() => setIdle(true), 20000); // 20s idle
-            }
+            if (!blocked.current) startTimer();
         };
 
         const onModalOpen = () => {
@@ -278,8 +283,7 @@ export const IdleScreen: React.FC = () => {
         };
         const onModalClose = () => {
             blocked.current = false;
-            // restart idle timer after modal closes
-            timer = setTimeout(() => setIdle(true), 20000);
+            startTimer();
         };
         
         window.addEventListener('mousemove', resetTimer);
@@ -288,7 +292,7 @@ export const IdleScreen: React.FC = () => {
         window.addEventListener('modal-open', onModalOpen);
         window.addEventListener('modal-close', onModalClose);
         
-        timer = setTimeout(() => setIdle(true), 20000);
+        startTimer();
         return () => {
             clearTimeout(timer);
             window.removeEventListener('mousemove', resetTimer);
@@ -299,7 +303,7 @@ export const IdleScreen: React.FC = () => {
         };
     }, []);
 
-    if (!idle) return null;
+    if (!idle || blocked.current) return null;
 
     return (
         <div className="fixed inset-0 z-[11000] bg-black flex flex-col items-center justify-center pointer-events-none text-center w-full px-4">

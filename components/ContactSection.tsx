@@ -7,6 +7,11 @@ const PUBLIC_KEY = import.meta.env.VITE_EMAIL_PUBLIC_KEY;
 const SERVICE_ID = import.meta.env.VITE_EMAIL_SERVICE_ID;
 const TEMPLATE_ID_CONTACT = import.meta.env.VITE_EMAIL_TEMPLATE_ID_CONTACT;
 
+// Initialize EmailJS once if public key is available
+if (PUBLIC_KEY) {
+  emailjs.init({ publicKey: PUBLIC_KEY });
+}
+
 export const ContactSection = ({ active }: { active: boolean }) => {
   const [formState, setFormState] = useState('idle'); // idle, sending, sent
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });

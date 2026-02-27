@@ -87,7 +87,7 @@ const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string
         >
           <HoloCard className="h-[500px]">
             <div className="h-full flex flex-col group relative">
-                <div className="h-64 w-full relative overflow-hidden bg-slate-900 border-b border-cyan-500/20 group-hover:border-cyan-400/50 transition-colors">
+                <div className="h-64 w-full relative overflow-hidden bg-slate-900 border-b border-cyan-500/20 group-hover:border-cyan-400/50 transition-colors pointer-events-none">
                      <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-slate-900 -z-0 pointer-events-none">
                         <div className="w-6 h-6 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin mb-2"></div>
                         <span className="text-[10px] text-slate-500 font-mono">
@@ -103,6 +103,7 @@ const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string
                               className="w-full h-full border-0 bg-white" 
                               sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
                               loading="lazy"
+                              style={{ pointerEvents: 'none' }}
                           />
                        </div>
                      )}

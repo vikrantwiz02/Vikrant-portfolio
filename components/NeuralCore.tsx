@@ -259,18 +259,34 @@ export const CommandTerminal: React.FC<{ isOpen: boolean, onClose: () => void, o
 /* --- 4. Idle Screen --- */
 export const IdleScreen: React.FC = () => {
     const [idle, setIdle] = useState(false);
+    const blocked = useRef(false);
     
     useEffect(() => {
         let timer: ReturnType<typeof setTimeout>;
         const resetTimer = () => {
             setIdle(false);
             clearTimeout(timer);
-            timer = setTimeout(() => setIdle(true), 20000); // 20s idle
+            if (!blocked.current) {
+                timer = setTimeout(() => setIdle(true), 20000); // 20s idle
+            }
+        };
+
+        const onModalOpen = () => {
+            blocked.current = true;
+            setIdle(false);
+            clearTimeout(timer);
+        };
+        const onModalClose = () => {
+            blocked.current = false;
+            // restart idle timer after modal closes
+            timer = setTimeout(() => setIdle(true), 20000);
         };
         
         window.addEventListener('mousemove', resetTimer);
         window.addEventListener('keydown', resetTimer);
         window.addEventListener('scroll', resetTimer);
+        window.addEventListener('modal-open', onModalOpen);
+        window.addEventListener('modal-close', onModalClose);
         
         timer = setTimeout(() => setIdle(true), 20000);
         return () => {
@@ -278,15 +294,17 @@ export const IdleScreen: React.FC = () => {
             window.removeEventListener('mousemove', resetTimer);
             window.removeEventListener('keydown', resetTimer);
             window.removeEventListener('scroll', resetTimer);
+            window.removeEventListener('modal-open', onModalOpen);
+            window.removeEventListener('modal-close', onModalClose);
         };
     }, []);
 
     if (!idle) return null;
 
     return (
-        <div className="fixed inset-0 z-[11000] bg-black flex flex-col items-center justify-center pointer-events-none">
-            <div className="text-cyan-500 font-mono text-4xl animate-pulse tracking-widest">SYSTEM STANDBY</div>
-            <div className="text-cyan-900 font-mono text-sm mt-4">Awaiting Input...</div>
+        <div className="fixed inset-0 z-[11000] bg-black flex flex-col items-center justify-center pointer-events-none text-center w-full px-4">
+            <div className="text-cyan-500 font-mono text-4xl animate-pulse tracking-widest w-full text-center">SYSTEM STANDBY</div>
+            <div className="text-cyan-900 font-mono text-sm mt-4 w-full text-center">Awaiting Input...</div>
         </div>
     );
 };

@@ -23,8 +23,10 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      window.dispatchEvent(new CustomEvent('modal-open'));
     } else {
       document.body.style.overflow = 'unset';
+      window.dispatchEvent(new CustomEvent('modal-close'));
     }
     return () => {
       document.body.style.overflow = 'unset';

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Download, Maximize2, Minimize2, FileText, Loader2, ExternalLink } from 'lucide-react';
+import { X, Download, FileText, Loader2, ExternalLink } from 'lucide-react';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -61,11 +61,10 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 <X size={14} />
               </button>
 
-              {/* Desktop traffic lights — red dot is the only close button */}
+              {/* Desktop traffic lights: red = close, green = fullscreen */}
               <div className="hidden md:flex gap-1.5">
                 <div className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-400 cursor-pointer transition-colors" onClick={onClose} title="Close" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                <div className="w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-400 cursor-pointer transition-colors" onClick={() => setIsFullscreen(f => !f)} title="Toggle Fullscreen" />
               </div>
 
               <div className="flex items-center gap-2 md:ml-2">
@@ -76,16 +75,8 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               </div>
             </div>
 
-            {/* Right: fullscreen + download only (no close button here) */}
+            {/* Right: download only */}
             <div className="flex items-center gap-1 md:gap-2">
-              <button
-                onClick={() => setIsFullscreen(!isFullscreen)}
-                className="hidden md:flex p-2 rounded-lg border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/50 transition-all duration-300"
-                title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
-              >
-                {isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
-              </button>
-
               <a
                 href="/Vikrant-Resume.pdf"
                 download="Vikrant_Kumar_Resume.pdf"

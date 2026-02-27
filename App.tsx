@@ -20,10 +20,22 @@ import {
 
 const HUDOverlay = ({ activeSection, coordRef }: { activeSection: string, coordRef: React.RefObject<HTMLDivElement> }) => {
   const [time, setTime] = useState(new Date().toLocaleTimeString());
+  const [modalOpen, setModalOpen] = useState(false);
   
   useEffect(() => {
     const t = setInterval(() => setTime(new Date().toLocaleTimeString()), 1000);
     return () => clearInterval(t);
+  }, []);
+
+  useEffect(() => {
+    const onOpen = () => setModalOpen(true);
+    const onClose = () => setModalOpen(false);
+    window.addEventListener('modal-open', onOpen);
+    window.addEventListener('modal-close', onClose);
+    return () => {
+      window.removeEventListener('modal-open', onOpen);
+      window.removeEventListener('modal-close', onClose);
+    };
   }, []);
 
   return (
@@ -39,7 +51,7 @@ const HUDOverlay = ({ activeSection, coordRef }: { activeSection: string, coordR
         <div className="border-t-2 border-l-2 border-cyan-500/40 w-8 h-8 md:w-16 md:h-16 rounded-tl-lg shadow-[0_0_5px_rgba(34,211,238,0.1)]" />
         <div className="flex flex-col items-end">
             <div className="border-t-2 border-r-2 border-cyan-500/30 w-8 h-8 md:w-16 md:h-16 rounded-tr-lg" />
-            <div className="font-mono text-[9px] text-cyan-400 mt-[-20px] mr-2 hidden md:block">{time}</div>
+            <div className="font-mono text-[9px] text-cyan-400 mt-[-20px] mr-2 hidden md:block">{modalOpen ? '' : time}</div>
         </div>
       </div>
       

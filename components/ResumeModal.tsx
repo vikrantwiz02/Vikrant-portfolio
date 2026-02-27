@@ -51,13 +51,23 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
         <div className="relative w-full h-full flex flex-col rounded-xl border border-cyan-500/30 bg-slate-950 shadow-[0_0_80px_rgba(34,211,238,0.15)] overflow-hidden">
 
           <div className="flex items-center justify-between px-3 md:px-4 py-3 bg-slate-900/80 border-b border-cyan-500/20">
-            {/* Left: traffic lights (desktop) + title */}
+            {/* Left: traffic lights (desktop only) + title */}
             <div className="flex items-center gap-2 md:gap-3">
+              {/* Mobile close button — only on mobile, no traffic lights */}
+              <button
+                onClick={onClose}
+                className="md:hidden p-1.5 rounded border border-red-500/50 bg-red-950/30 text-red-400 hover:bg-red-500/20 transition-all duration-300"
+              >
+                <X size={14} />
+              </button>
+
+              {/* Desktop traffic lights — red dot is the only close button */}
               <div className="hidden md:flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-400 cursor-pointer transition-colors" onClick={onClose} />
+                <div className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-400 cursor-pointer transition-colors" onClick={onClose} title="Close" />
                 <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 <div className="w-3 h-3 rounded-full bg-green-500/80" />
               </div>
+
               <div className="flex items-center gap-2 md:ml-2">
                 <FileText size={14} className="text-cyan-400" />
                 <span className="font-mono text-[10px] md:text-xs text-cyan-300 tracking-wider">
@@ -66,7 +76,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               </div>
             </div>
 
-            {/* Right: fullscreen + download + single close */}
+            {/* Right: fullscreen + download only (no close button here) */}
             <div className="flex items-center gap-1 md:gap-2">
               <button
                 onClick={() => setIsFullscreen(!isFullscreen)}
@@ -84,13 +94,6 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 <Download size={14} />
                 <span>DOWNLOAD</span>
               </a>
-
-              <button
-                onClick={onClose}
-                className="p-2 rounded-lg border border-red-500/50 bg-red-950/30 text-red-400 hover:bg-red-500/20 transition-all duration-300"
-              >
-                <X size={16} />
-              </button>
             </div>
           </div>
 

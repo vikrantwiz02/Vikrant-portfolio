@@ -45,27 +45,20 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
       {/* Modal Content */}
       <div className={`fixed transition-all duration-500 ease-out ${
         isFullscreen 
-          ? 'inset-x-1 top-1 bottom-10 md:inset-x-2 md:top-2 md:bottom-10' 
-          : 'inset-x-2 top-2 bottom-12 md:inset-x-4 md:top-4 md:bottom-12 lg:inset-x-6 lg:top-6 lg:bottom-12 xl:inset-x-10 xl:top-10 xl:bottom-12'
+          ? 'inset-x-1 top-14 bottom-10 md:inset-x-2' 
+          : 'inset-x-2 top-16 bottom-10 md:inset-x-6 md:top-20 md:bottom-10 lg:inset-x-10'
       }`}>
         <div className="relative w-full h-full flex flex-col rounded-xl border border-cyan-500/30 bg-slate-950 shadow-[0_0_80px_rgba(34,211,238,0.15)] overflow-hidden">
 
           <div className="flex items-center justify-between px-3 md:px-4 py-3 bg-slate-900/80 border-b border-cyan-500/20">
+            {/* Left: traffic lights (desktop) + title */}
             <div className="flex items-center gap-2 md:gap-3">
-              <button
-                onClick={onClose}
-                className="md:hidden p-2 rounded-lg border border-red-500/50 bg-red-950/30 text-red-400 hover:bg-red-500/20 transition-all duration-300"
-              >
-                <X size={18} />
-              </button>
-              
               <div className="hidden md:flex gap-1.5">
                 <div className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-400 cursor-pointer transition-colors" onClick={onClose} />
                 <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 <div className="w-3 h-3 rounded-full bg-green-500/80" />
               </div>
-              
-              <div className="flex items-center gap-2 ml-1 md:ml-2">
+              <div className="flex items-center gap-2 md:ml-2">
                 <FileText size={14} className="text-cyan-400" />
                 <span className="font-mono text-[10px] md:text-xs text-cyan-300 tracking-wider">
                   RESUME<span className="hidden sm:inline">_VIEWER.exe</span>
@@ -73,6 +66,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               </div>
             </div>
 
+            {/* Right: fullscreen + download + single close */}
             <div className="flex items-center gap-1 md:gap-2">
               <button
                 onClick={() => setIsFullscreen(!isFullscreen)}
@@ -88,13 +82,12 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 className="flex items-center gap-1 md:gap-2 px-3 md:px-4 py-2 rounded-lg border border-cyan-500/50 bg-cyan-950/30 text-cyan-400 font-mono text-[10px] md:text-xs tracking-wider hover:bg-cyan-500/20 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all duration-300"
               >
                 <Download size={14} />
-                <span className="hidden xs:inline">DOWNLOAD</span>
+                <span>DOWNLOAD</span>
               </a>
 
-              {/* Desktop close button */}
               <button
                 onClick={onClose}
-                className="hidden md:flex p-2 rounded-lg border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-red-400 hover:border-red-500/50 transition-all duration-300"
+                className="p-2 rounded-lg border border-red-500/50 bg-red-950/30 text-red-400 hover:bg-red-500/20 transition-all duration-300"
               >
                 <X size={16} />
               </button>

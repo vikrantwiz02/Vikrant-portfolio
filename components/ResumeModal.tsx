@@ -45,8 +45,8 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
       {/* Modal Content */}
       <div className={`fixed transition-all duration-500 ease-out ${
         isFullscreen 
-          ? 'inset-1 md:inset-2' 
-          : 'inset-2 md:inset-4 lg:inset-6 xl:inset-10'
+          ? 'inset-x-1 top-1 bottom-10 md:inset-x-2 md:top-2 md:bottom-10' 
+          : 'inset-x-2 top-2 bottom-12 md:inset-x-4 md:top-4 md:bottom-12 lg:inset-x-6 lg:top-6 lg:bottom-12 xl:inset-x-10 xl:top-10 xl:bottom-12'
       }`}>
         <div className="relative w-full h-full flex flex-col rounded-xl border border-cyan-500/30 bg-slate-950 shadow-[0_0_80px_rgba(34,211,238,0.15)] overflow-hidden">
 

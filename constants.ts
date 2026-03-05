@@ -1,6 +1,7 @@
 import { 
   Layout, Server, Cloud, Cpu, Smartphone, Database, 
-  Terminal, Github, Users, ShoppingCart, Monitor, Rocket 
+  Terminal, Github, Users, ShoppingCart, Monitor, Rocket,
+  Code2, GitBranch, Layers
 } from 'lucide-react';
 import { Achievement, Experience, Project, Service, Skill } from './types';
 
@@ -32,12 +33,19 @@ export const EDUCATION: Experience[] = [
 ];
 
 export const SKILLS: Skill[] = [
-  { name: 'React / Next.js', level: 98, category: 'frontend', icon: Layout },
-  { name: 'Node / Python', level: 92, category: 'backend', icon: Server },
-  { name: 'AWS / Docker', level: 85, category: 'tools', icon: Cloud },
-  { name: 'System Design', level: 88, category: 'ai', icon: Cpu },
-  { name: 'Mobile Dev', level: 75, category: 'frontend', icon: Smartphone },
-  { name: 'Database', level: 90, category: 'backend', icon: Database },
+  // Languages
+  { name: 'JS / TS / Python / Java', level: 95, category: 'languages', icon: Code2 },
+  { name: 'C++ / SQL / HTML / CSS', level: 88, category: 'languages', icon: Layers },
+  // Frameworks & Libraries
+  { name: 'React.js / Next.js', level: 98, category: 'frontend', icon: Layout },
+  { name: 'Node.js / Express.js / Django', level: 92, category: 'backend', icon: Server },
+  { name: 'React Native / Tailwind / Vite', level: 80, category: 'frontend', icon: Smartphone },
+  // Infrastructure & Cloud
+  { name: 'AWS (EC2/S3) / Docker / Vercel', level: 85, category: 'cloud', icon: Cloud },
+  { name: 'PostgreSQL / MongoDB / Firebase', level: 90, category: 'database', icon: Database },
+  // Engineering Tools
+  { name: 'CI/CD / REST APIs / System Design', level: 88, category: 'tools', icon: Cpu },
+  { name: 'Agile/Scrum / Team Leadership', level: 85, category: 'tools', icon: GitBranch },
 ];
 
 export const PROJECTS: Project[] = [

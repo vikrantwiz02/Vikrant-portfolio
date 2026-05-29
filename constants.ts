@@ -71,7 +71,7 @@ export const PROJECTS: Project[] = [
     description: 'Enterprise ERP serving 3000+ users.',
     tags: ['React', 'Django', 'PostgreSQL'],
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop',
-    link: 'http://fusion.iiitdmj.ac.in/'
+    link: 'https://fusion.iiitdmj.ac.in/'
   },
   {
     id: '4',
@@ -95,7 +95,7 @@ export const PROJECTS: Project[] = [
     description: 'High-performance security guardrails, PII redaction, and governance layer for MCP-compatible AI agents.',
     tags: ['TypeScript', 'MCP', 'Security', 'AI'],
     image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop',
-    link: 'https://www.npmjs.com/package/mcp-warden'
+    link: 'https://github.com/vikrantwiz02/mcp-warden'
   },
   {
     id: '7',
@@ -103,7 +103,7 @@ export const PROJECTS: Project[] = [
     description: 'Real-time meeting intelligence with semantic consensus scoring, per-speaker drift detection, HD group video, and auto-transcription.',
     tags: ['Go', 'Next.js', 'WebRTC', 'TypeScript'],
     image: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?q=80&w=1000&auto=format&fit=crop',
-    link: 'https://kansostate.vikrantkumar.site'
+    link: 'https://github.com/vikrantwiz02/KansoState'
   },
   {
     id: '8',

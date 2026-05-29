@@ -67,15 +67,25 @@ const LivePreviewModal = ({ project, onClose }: { project: Project | null, onClo
     );
 };
 
-const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string, project: Project, index: number, activeSection: boolean, onExpand: (p: Project) => void }) => {
+const isGithubLink = (url: string) => url.includes('github.com');
+
+const ProjectCard = ({ project, index, activeSection, onExpand }: { project: Project, index: number, activeSection: boolean, onExpand: (p: Project) => void }) => {
     const { ref, isInView } = useInView();
     const [loadIframe, setLoadIframe] = useState(false);
+    const [iframeFailed, setIframeFailed] = useState(false);
 
     useEffect(() => {
       if (!isInView) return;
-      const delay = setTimeout(() => setLoadIframe(true), index * 800);
+      const delay = setTimeout(() => setLoadIframe(true), index * 600);
       return () => clearTimeout(delay);
     }, [isInView, index]);
+
+    // Timeout fallback: if iframe hasn't shown content after 7s, show thumbnail
+    useEffect(() => {
+      if (!loadIframe || iframeFailed || isGithubLink(project.link)) return;
+      const timeout = setTimeout(() => setIframeFailed(true), 7000);
+      return () => clearTimeout(timeout);
+    }, [loadIframe, iframeFailed, project.link]);
 
     return (
         <div 
@@ -91,6 +101,16 @@ const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string
             <div className="h-full flex flex-col group relative">
                 <div className="h-64 w-full relative overflow-hidden bg-slate-900 border-b border-cyan-500/20 group-hover:border-cyan-400/50 transition-colors pointer-events-none">
                      {IS_MOBILE ? (
+                       <>
+                         <img
+                           src={project.image}
+                           alt={project.title}
+                           loading="lazy"
+                           className="w-full h-full object-cover opacity-60"
+                         />
+                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
+                       </>
+                     ) : iframeFailed || isGithubLink(project.link) ? (
                        <>
                          <img
                            src={project.image}
@@ -116,6 +136,7 @@ const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string
                                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
                                loading="lazy"
                                style={{ pointerEvents: 'none' }}
+                               onError={() => setIframeFailed(true)}
                              />
                            </div>
                          )}
@@ -154,7 +175,7 @@ const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string
                     
                     <div className="mt-auto pt-4 border-t border-white/5 flex justify-between items-center">
                          <div className="flex items-center gap-2">
-                            {project.link.includes('github.com') ? (
+                            {isGithubLink(project.link) ? (
                               <>
                                 <div className="w-1.5 h-1.5 bg-purple-400 rounded-full" />
                                 <span className="text-[10px] font-mono text-slate-500">OPEN_SOURCE</span>
@@ -168,7 +189,7 @@ const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string
                          </div>
 
                          <div className="flex items-center gap-3">
-                            {!IS_MOBILE && !project.link.includes('github.com') && (
+                            {!IS_MOBILE && !isGithubLink(project.link) && (
                               <button
                                 onClick={() => onExpand(project)}
                                 className="text-slate-500 hover:text-cyan-400 transition-colors"
@@ -214,13 +235,14 @@ export const ProjectsSection = ({ active }: { active: boolean }) => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl w-full px-6">
           {PROJECTS.map((project, idx) => (
-            <ProjectCard 
-                key={project.id} 
-                project={project} 
-                index={idx} 
+            <React.Fragment key={project.id}>
+            <ProjectCard
+                project={project}
+                index={idx}
                 activeSection={active}
                 onExpand={setExpandedProject}
             />
+            </React.Fragment>
           ))}
         </div>
       </section>

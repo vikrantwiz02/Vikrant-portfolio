@@ -17,6 +17,13 @@ export const OrderModal: React.FC<OrderModalProps> = ({ service, onClose }) => {
   const [formData, setFormData] = useState({ name: '', email: '', budget: '', details: '' });
   const [sending, setSending] = useState(false);
 
+  React.useEffect(() => {
+    if (service) {
+      window.dispatchEvent(new Event('modal-open'));
+      return () => window.dispatchEvent(new Event('modal-close'));
+    }
+  }, [service]);
+
   if (!service) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {

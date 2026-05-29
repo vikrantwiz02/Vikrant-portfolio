@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Eye, Sparkles } from 'lucide-react';
+import { ChevronDown, Eye } from 'lucide-react';
 import { GlitchText, MagneticWrapper, ScrambleLink, WireframeTesseract } from './NeuralCore';
 import { PROFILE_IMAGE } from '../constants';
 import { ResumeModal } from './ResumeModal';
 
+const IS_MOBILE = typeof window !== 'undefined' && window.innerWidth < 768;
+
 const FloatingData = () => {
+  if (IS_MOBILE) return null;
   const dataPoints = [
     { text: '0x4F2A', top: '10%', left: '10%' },
     { text: 'REACT_V19', top: '20%', left: '80%' },
@@ -31,22 +34,22 @@ const FloatingData = () => {
 };
 
 /* Orbiting particles around the profile image */
-const OrbitingParticles = () => (
+const OrbitingParticles = () => {
+  if (IS_MOBILE) return null;
+  return (
   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-    {/* Particle 1 */}
     <div className="absolute animate-orbit" style={{ animationDuration: '6s' }}>
       <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full shadow-[0_0_8px_#22d3ee]" />
     </div>
-    {/* Particle 2 */}
     <div className="absolute animate-orbit-reverse" style={{ animationDuration: '10s' }}>
       <div className="w-1 h-1 bg-purple-400 rounded-full shadow-[0_0_8px_#a855f7]" />
     </div>
-    {/* Particle 3 */}
     <div className="absolute animate-orbit" style={{ animationDuration: '14s', animationDelay: '2s' }}>
       <div className="w-1 h-1 bg-cyan-300 rounded-full shadow-[0_0_6px_#67e8f9]" />
     </div>
   </div>
-);
+  );
+};
 
 export const HeroSection = ({ isScrolling }: { isScrolling: boolean }) => {
   const [text, setText] = useState('');
@@ -67,9 +70,11 @@ export const HeroSection = ({ isScrolling }: { isScrolling: boolean }) => {
     <section className="min-h-screen flex flex-col items-center justify-center relative text-center z-10 px-4 overflow-hidden">
       <FloatingData />
 
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 opacity-30 pointer-events-none">
+      {!IS_MOBILE && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 opacity-30 pointer-events-none">
           <WireframeTesseract />
-      </div>
+        </div>
+      )}
 
       <div className="relative w-36 h-36 md:w-44 md:h-44 mb-12 z-20 group cursor-default mt-20 md:mt-8">
           {/* Outer Glow Ring */}
@@ -91,9 +96,10 @@ export const HeroSection = ({ isScrolling }: { isScrolling: boolean }) => {
           <div className="absolute inset-0 rounded-full overflow-hidden border-2 border-cyan-500/50 bg-black/80 backdrop-blur-sm shadow-[0_0_40px_rgba(34,211,238,0.3)] group-hover:shadow-[0_0_60px_rgba(34,211,238,0.5),0_0_100px_rgba(168,85,247,0.2)] transition-shadow duration-500">
              
              {/* The Image */}
-             <img 
-               src={PROFILE_IMAGE} 
-               alt="Vikrant Kumar - Full Stack Developer" 
+             <img
+               src={PROFILE_IMAGE}
+               alt="Vikrant Kumar - Full Stack Developer"
+               fetchPriority="high"
                className="w-full h-full object-cover object-top grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-out group-hover:scale-105"
              />
              

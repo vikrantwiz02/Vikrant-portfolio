@@ -198,11 +198,12 @@ const App: React.FC = () => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [bootComplete, setBootComplete] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
-  
-  // Use a ref for direct DOM manipulation to avoid re-renders on every scroll event
+
+  // Use refs for direct DOM manipulation and to avoid stale closures in scroll handler
   const coordRef = useRef<HTMLDivElement>(null);
-  
-  // 1. Unified Scroll Logic (Optimized)
+  const activeSectionRef = useRef<string>('hero');
+
+  // 1. Unified Scroll Logic (Optimized) — subscribes once, uses ref to track active section
   useEffect(() => {
     let scrollTimeout: ReturnType<typeof setTimeout>;
     const sectionIds = ['hero', 'about', 'experience', 'education', 'skills', 'projects', 'achievements', 'services', 'contact'];
@@ -210,21 +211,18 @@ const App: React.FC = () => {
 
     const updateScroll = () => {
       const currentScrollY = window.scrollY;
-      
-      // Direct DOM update for high performance
+
       if (coordRef.current) {
         coordRef.current.innerText = `COORD: ${currentScrollY.toFixed(0)}`;
       }
 
-      // Neural Thread Progress
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = currentScrollY / totalHeight;
       setScrollProgress(Math.min(Math.max(progress, 0), 1));
 
-      // Active Section Scanner
       const viewportCenter = currentScrollY + (window.innerHeight / 2);
-      
-      let closestId = activeSection;
+
+      let closestId = activeSectionRef.current;
       let minDistance = Infinity;
 
       sectionIds.forEach(id => {
@@ -239,19 +237,18 @@ const App: React.FC = () => {
         }
       });
 
-      if (closestId !== activeSection) {
+      if (closestId !== activeSectionRef.current) {
+        activeSectionRef.current = closestId;
         setActiveSection(closestId);
       }
-      
+
       ticking = false;
     };
 
     const handleScroll = () => {
       setIsScrolling(true);
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        setIsScrolling(false);
-      }, 150);
+      scrollTimeout = setTimeout(() => setIsScrolling(false), 150);
 
       if (!ticking) {
         window.requestAnimationFrame(updateScroll);
@@ -260,14 +257,13 @@ const App: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    // Initial call to set state
     updateScroll();
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       clearTimeout(scrollTimeout);
     };
-  }, [activeSection]);
+  }, []); // No dependency — uses ref instead of stale closure
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -334,12 +330,12 @@ const App: React.FC = () => {
       />
 
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] animate-pulse" />
+        <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] md:animate-pulse" />
         <BinaryRain />
         <Constellation />
         <FloatingRunes />
         
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-obsidian to-obsidian animate-gradient-breathe opacity-50" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-obsidian to-obsidian md:animate-gradient-breathe opacity-50" />
         <div className="absolute inset-0 opacity-[0.035]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }} />
       </div>
 

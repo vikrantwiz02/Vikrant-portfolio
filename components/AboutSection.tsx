@@ -28,7 +28,7 @@ export const AboutSection = ({ active }: { active: boolean }) => (
       </div>
 
       <div className="transition-all duration-500">
-         <div className={`p-6 border rounded-lg backdrop-blur-sm transition-all duration-500 holo-shimmer relative overflow-hidden ${active ? 'border-cyan-500/40 bg-cyan-950/20 shadow-[0_0_30px_rgba(34,211,238,0.1)]' : 'border-slate-800 bg-slate-900/10'}`}>
+         <div className={`p-6 border rounded-lg md:backdrop-blur-sm transition-all duration-500 holo-shimmer relative overflow-hidden ${active ? 'border-cyan-500/40 bg-cyan-950/20 shadow-[0_0_30px_rgba(34,211,238,0.1)]' : 'border-slate-800 bg-slate-900/10'}`}>
             <p className="font-mono text-cyan-300 text-sm mb-3">// CORE FOCUS</p>
             <div className="space-y-3 text-slate-300 text-sm">
               <div className="flex items-center gap-3 group">

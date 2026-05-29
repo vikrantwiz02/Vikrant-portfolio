@@ -4,6 +4,8 @@ import { DecryptionText, HoloCard, NeuralNode } from './NeuralCore';
 import { PROJECTS } from '../constants';
 import { Project } from '../types';
 
+const IS_MOBILE = typeof window !== 'undefined' && window.innerWidth < 768;
+
 const useInView = (options?: IntersectionObserverInit) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = useState(false);
@@ -88,34 +90,46 @@ const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string
           <HoloCard className="h-[500px]">
             <div className="h-full flex flex-col group relative">
                 <div className="h-64 w-full relative overflow-hidden bg-slate-900 border-b border-cyan-500/20 group-hover:border-cyan-400/50 transition-colors pointer-events-none">
-                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-slate-900 -z-0 pointer-events-none">
-                        <div className="w-6 h-6 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin mb-2"></div>
-                        <span className="text-[10px] text-slate-500 font-mono">
-                            INITIALIZING DESKTOP ENV...
-                        </span>
-                     </div>
+                     {IS_MOBILE ? (
+                       <>
+                         <img
+                           src={project.image}
+                           alt={project.title}
+                           loading="lazy"
+                           className="w-full h-full object-cover opacity-60"
+                         />
+                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
+                       </>
+                     ) : (
+                       <>
+                         <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-slate-900 -z-0 pointer-events-none">
+                           <div className="w-6 h-6 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin mb-2"></div>
+                           <span className="text-[10px] text-slate-500 font-mono">INITIALIZING DESKTOP ENV...</span>
+                         </div>
 
-                     {loadIframe && (
-                       <div className="absolute inset-0 w-[400%] h-[400%] origin-top-left scale-[0.25] z-10" style={{ willChange: 'transform' }}>
-                          <iframe 
-                              src={project.link} 
-                              title={project.title}
-                              className="w-full h-full border-0 bg-white" 
-                              sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-                              loading="lazy"
-                              style={{ pointerEvents: 'none' }}
-                          />
-                       </div>
-                     )}
+                         {loadIframe && (
+                           <div className="absolute inset-0 w-[400%] h-[400%] origin-top-left scale-[0.25] z-10" style={{ willChange: 'transform' }}>
+                             <iframe
+                               src={project.link}
+                               title={project.title}
+                               className="w-full h-full border-0 bg-white"
+                               sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                               loading="lazy"
+                               style={{ pointerEvents: 'none' }}
+                             />
+                           </div>
+                         )}
 
-                     <div className="absolute top-2 right-2 z-20 flex gap-2">
-                        <div className="flex items-center gap-1 bg-black/60 backdrop-blur border border-cyan-500/30 px-2 py-1 rounded text-cyan-400">
+                         <div className="absolute top-2 right-2 z-20 flex gap-2">
+                           <div className="flex items-center gap-1 bg-black/60 backdrop-blur border border-cyan-500/30 px-2 py-1 rounded text-cyan-400">
                              <Monitor size={10} />
                              <span className="text-[9px] font-mono tracking-wider">DESKTOP_VIEW</span>
-                        </div>
-                     </div>
+                           </div>
+                         </div>
 
-                     <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] opacity-10 z-20" />
+                         <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] opacity-10 z-20" />
+                       </>
+                     )}
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col relative z-20 bg-charcoal">
@@ -140,19 +154,39 @@ const ProjectCard = ({ project, index, activeSection, onExpand }: { key?: string
                     
                     <div className="mt-auto pt-4 border-t border-white/5 flex justify-between items-center">
                          <div className="flex items-center gap-2">
-                            <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                            <span className="text-[10px] font-mono text-slate-500">SYSTEM: ONLINE</span>
+                            {project.link.includes('github.com') ? (
+                              <>
+                                <div className="w-1.5 h-1.5 bg-purple-400 rounded-full" />
+                                <span className="text-[10px] font-mono text-slate-500">OPEN_SOURCE</span>
+                              </>
+                            ) : (
+                              <>
+                                <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                                <span className="text-[10px] font-mono text-slate-500">SYSTEM: ONLINE</span>
+                              </>
+                            )}
                          </div>
 
-                         <a 
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-sm font-mono text-slate-300 hover:text-cyan-400 transition-colors group/btn"
-                        >
-                            <span>Visit</span>
-                            <ExternalLink size={14} className="group-hover/btn:translate-x-1 transition-transform" />
-                        </a>
+                         <div className="flex items-center gap-3">
+                            {!IS_MOBILE && !project.link.includes('github.com') && (
+                              <button
+                                onClick={() => onExpand(project)}
+                                className="text-slate-500 hover:text-cyan-400 transition-colors"
+                                title="Full-screen preview"
+                              >
+                                <Maximize2 size={13} />
+                              </button>
+                            )}
+                            <a
+                              href={project.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-2 text-sm font-mono text-slate-300 hover:text-cyan-400 transition-colors group/btn"
+                            >
+                              <span>Visit</span>
+                              <ExternalLink size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+                            </a>
+                         </div>
                     </div>
                 </div>
             </div>

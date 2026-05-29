@@ -44,7 +44,3 @@ export interface Service {
   budgetOptions: string[];
 }
 
-export interface SectionProps {
-  id: string;
-  className?: string;
-}

@@ -40,14 +40,18 @@ export const SkillsSection = ({ active }: { active: boolean }) => (
     {/* Hex Nodes */}
     <div className="flex flex-wrap justify-center gap-12 max-w-5xl w-full px-6 mb-16">
       {SKILLS.map((skill, idx) => (
-         <HexNode key={idx} level={skill.level} label={skill.name} icon={skill.icon} />
+        <React.Fragment key={idx}>
+          <HexNode level={skill.level} label={skill.name} icon={skill.icon} />
+        </React.Fragment>
       ))}
     </div>
 
     {/* Progress Bars */}
     <div className="w-full max-w-2xl px-6 space-y-5">
       {SKILLS.map((skill, idx) => (
-        <SkillBar key={idx} skill={skill} active={active} delay={idx * 100} />
+        <React.Fragment key={idx}>
+          <SkillBar skill={skill} active={active} delay={idx * 100} />
+        </React.Fragment>
       ))}
     </div>
   </section>

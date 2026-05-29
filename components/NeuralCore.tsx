@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
+const IS_MOBILE = typeof window !== 'undefined' && window.innerWidth < 768;
+
 // Shared AudioContext — created once on first user gesture, reused thereafter
 let _sharedCtx: AudioContext | null = null;
 const getAudioContext = (): AudioContext | null => {
@@ -62,8 +64,9 @@ export const useAudio = () => {
 
 export const SonarPulse: React.FC = () => {
     const [ripples, setRipples] = useState<{x: number, y: number, id: number}[]>([]);
-    
+
     useEffect(() => {
+        if (IS_MOBILE) return;
         const handleClick = (e: MouseEvent) => {
             const id = Date.now();
             setRipples(prev => [...prev, { x: e.clientX, y: e.clientY, id }]);
@@ -75,6 +78,7 @@ export const SonarPulse: React.FC = () => {
         return () => window.removeEventListener('click', handleClick);
     }, []);
 
+    if (IS_MOBILE) return null;
     return (
         <div className="fixed inset-0 pointer-events-none z-[9990] overflow-hidden">
             {ripples.map(r => (
@@ -391,6 +395,7 @@ export const Constellation: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
+        if (IS_MOBILE) return;
         const canvas = canvasRef.current;
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
@@ -461,6 +466,7 @@ export const Constellation: React.FC = () => {
         };
     }, []);
 
+    if (IS_MOBILE) return null;
     return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-[1] opacity-30" />;
 };
 
@@ -553,6 +559,8 @@ export const MagneticWrapper: React.FC<{ children: React.ReactNode; className?: 
     setPosition({ x: 0, y: 0 });
   };
 
+  if (IS_MOBILE) return <div className={className}>{children}</div>;
+
   return (
     <motion.div
       ref={ref}
@@ -574,6 +582,14 @@ export const HoloCard: React.FC<{ children: React.ReactNode; className?: string;
   const rotateX = useTransform(y, [-100, 100], [10, -10]);
   const rotateY = useTransform(x, [-100, 100], [-10, 10]);
 
+  if (IS_MOBILE) {
+    return (
+      <div className={className} onClick={onClick}>
+        <ExpanseWindow className="h-full">{children}</ExpanseWindow>
+      </div>
+    );
+  }
+
   return (
     <div style={{ perspective: 1000 }} className={className} onClick={onClick}>
       <motion.div
@@ -589,9 +605,7 @@ export const HoloCard: React.FC<{ children: React.ReactNode; className?: string;
             y.set(0);
         }}
       >
-        <ExpanseWindow className="h-full">
-           {children}
-        </ExpanseWindow>
+        <ExpanseWindow className="h-full">{children}</ExpanseWindow>
       </motion.div>
     </div>
   );
@@ -599,8 +613,9 @@ export const HoloCard: React.FC<{ children: React.ReactNode; className?: string;
 
 export const BinaryRain: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
+
   useEffect(() => {
+    if (IS_MOBILE) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -652,39 +667,42 @@ export const BinaryRain: React.FC = () => {
     };
   }, []);
 
+  if (IS_MOBILE) return null;
   return <canvas ref={canvasRef} className="fixed inset-0 z-0 opacity-10 pointer-events-none" />;
 };
 
 export const SystemLogger: React.FC = () => {
   const [logs, setLogs] = useState<string[]>([]);
-  
+
   useEffect(() => {
+    if (IS_MOBILE) return;
     const addLog = (msg: string) => {
         setLogs(prev => [msg, ...prev].slice(0, 5));
     };
 
     const handleClick = () => addLog(`CLICK_EVENT detected at ${new Date().toLocaleTimeString()}`);
-    // Debounce scroll log to save render cycles
     let scrollTimeout: ReturnType<typeof setTimeout>;
-    const handleScroll = () => { 
+    const handleScroll = () => {
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
             if(Math.random() > 0.8) addLog(`SCROLL_Y: ${window.scrollY.toFixed(0)}`);
         }, 500);
     };
-    
+
     window.addEventListener('click', handleClick);
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => {
         window.removeEventListener('click', handleClick);
         window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  return null;
 };
 
 export const FloatingRunes: React.FC = () => {
-  // Use CSS Animation instead of JS for smoother infinite float
+  if (IS_MOBILE) return null;
   return (
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {Array.from({length: 6}).map((_, i) => (
@@ -746,9 +764,9 @@ export const ExpanseWindow: React.FC<{ children: React.ReactNode; className?: st
   return (
     <div 
       className={`
-        group relative overflow-hidden rounded-xl 
-        bg-charcoal/40 backdrop-blur-md 
-        border border-white/5 
+        group relative overflow-hidden rounded-xl
+        bg-charcoal/60 md:bg-charcoal/40 md:backdrop-blur-md
+        border border-white/5
         transition-all duration-500 ease-out
         hover:border-cyan-400/50 hover:shadow-[0_0_40px_rgba(34,211,238,0.15),inset_0_0_30px_rgba(34,211,238,0.05)] hover:scale-[1.02]
         ${className}
@@ -776,7 +794,7 @@ export const CyberCursor: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    // Throttled mouse move for cursor performance
+    if (IS_MOBILE) return;
     let animationFrameId: number;
     const updatePosition = (e: MouseEvent) => {
       cancelAnimationFrame(animationFrameId);
@@ -804,9 +822,10 @@ export const CyberCursor: React.FC = () => {
     };
   }, []);
 
+  if (IS_MOBILE) return null;
   return (
     <>
-      <div 
+      <div
         className="fixed top-0 left-0 w-2 h-2 bg-cyan-400 rounded-full pointer-events-none z-[9999] mix-blend-difference"
         style={{ transform: `translate(${position.x - 4}px, ${position.y - 4}px)` }}
       />

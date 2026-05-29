@@ -88,6 +88,30 @@ export const PROJECTS: Project[] = [
     tags: ['Python', 'React', 'MongoDB'],
     image: 'https://images.unsplash.com/photo-1581093458791-9f302e6d8359?q=80&w=1000&auto=format&fit=crop',
     link: 'https://hydro-tech-mu.vercel.app/'
+  },
+  {
+    id: '6',
+    title: 'MCP Warden',
+    description: 'High-performance security guardrails, PII redaction, and governance layer for MCP-compatible AI agents.',
+    tags: ['TypeScript', 'MCP', 'Security', 'AI'],
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop',
+    link: 'https://www.npmjs.com/package/mcp-warden'
+  },
+  {
+    id: '7',
+    title: 'KansoState',
+    description: 'Real-time meeting intelligence with semantic consensus scoring, per-speaker drift detection, HD group video, and auto-transcription.',
+    tags: ['Go', 'Next.js', 'WebRTC', 'TypeScript'],
+    image: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?q=80&w=1000&auto=format&fit=crop',
+    link: 'https://kansostate.vikrantkumar.site'
+  },
+  {
+    id: '8',
+    title: 'GridShift',
+    description: 'Renewable-aware workload scheduler that shifts compute load into solar/wind peaks using linear programming.',
+    tags: ['Python', 'FastAPI', 'React', 'PostgreSQL'],
+    image: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=1000&auto=format&fit=crop',
+    link: 'https://gridshift.vikrantkumar.site'
   }
 ];
 

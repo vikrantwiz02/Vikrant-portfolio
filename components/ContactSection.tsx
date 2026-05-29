@@ -13,7 +13,7 @@ if (PUBLIC_KEY) {
 }
 
 export const ContactSection = ({ active }: { active: boolean }) => {
-  const [formState, setFormState] = useState('idle'); // idle, sending, sent
+  const [formState, setFormState] = useState('idle'); // idle, sending, sent, error
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -49,8 +49,7 @@ export const ContactSection = ({ active }: { active: boolean }) => {
         setFormData({ name: '', email: '', message: '' });
     } catch (error) {
        console.error("EmailJS Error:", error);
-       alert("Transmission Error: Unable to establish secure uplink. Check console for details.");
-       setFormState('idle');
+       setFormState('error');
     }
   };
 
@@ -88,14 +87,25 @@ export const ContactSection = ({ active }: { active: boolean }) => {
           </div>
 
           {formState === 'sent' ? (
-            <div className="text-center py-12 animate-fade-in">
+            <div className="text-center py-12">
               <h3 className="text-2xl text-cyan-400 font-bold mb-2">Transmission Successful</h3>
               <p className="text-slate-400">Your packet has been uploaded to the neural network.</p>
-              <button 
+              <button
                 onClick={() => setFormState('idle')}
                 className="mt-6 text-sm text-slate-500 hover:text-white underline decoration-slate-700 underline-offset-4 cursor-pointer"
               >
                 Send another signal
+              </button>
+            </div>
+          ) : formState === 'error' ? (
+            <div className="text-center py-12">
+              <h3 className="text-xl text-red-400 font-bold mb-2">Transmission Failed</h3>
+              <p className="text-slate-400 text-sm">Unable to establish uplink. Please try again or reach out directly at <span className="text-cyan-400">vikrantkrd@gmail.com</span></p>
+              <button
+                onClick={() => setFormState('idle')}
+                className="mt-6 text-sm text-slate-500 hover:text-white underline decoration-slate-700 underline-offset-4 cursor-pointer"
+              >
+                Retry
               </button>
             </div>
           ) : (
